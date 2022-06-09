@@ -1,0 +1,8 @@
+{{ form_start(form, {'action': path('search'), 'method':'POST'}) }}
+<div class="input-group">
+    {{ form_widget(form.search, {'attr': {'class':'form-control rounded-pill'}}) }}
+    <span class="input-group-btn">
+        {{ form_widget(form.buscar, {'attr': {'class':'btn btn-outline-primary'}}) }}
+        {{ form_end(form)}}
+    </span>
+</div>

@@ -1,0 +1,42 @@
+body{
+    /*background: #fff3f3;*/
+}
+.button_delete_edit {
+    display: grid;
+    top: -5px;
+    left: -11px;
+    background: white;
+    position: absolute;
+    padding: 0.2rem;
+}
+
+a.categorie_url {
+    text-decoration: none;
+}
+a.tags_url{
+    text-decoration: none;
+}
+
+.input-group .btn {
+    position: absolute !important;
+    right: 0 !important;
+    border-radius: 23px !important;
+    background: #337ab7 !important;
+    border: 1px solid #337ab7 !important;
+    color: white !important;
+    font-weight: 500 !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+    display: flex !important;
+    align-items: center !important;
+}
+.content_badge_roles span {
+    font-size: 0.56rem !important;
+    font-weight: 900 !important;
+}
+.content_name_user{
+    font-size: 0.8rem;
+    font-weight: 900 !important;
+}

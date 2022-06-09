@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Busqueda {% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card-body">otros</div>
+        </div>
+        <div class="col-md-9">
+            <div class="card-body d-flex justify-content-between">
+                <div>
+                    Estos son los resultados de tu busqueda:
+                    <span class="badge bg-light text-dark"> "{{ palabra }}"</span>
+                </div>
+                <div>Resultados:
+                    <span class="badge bg-dark">"{{ totalResult }}"</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    {% for result in results %}
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="d-flex">
+                                    <div class="card-body d-flex align-items-center">
+                                        <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
+                                        <p class="badge text-dark p-3 text-md-start fs-6 cursor-pointer">
+                                            {{ result.user.name }}
+                                            <small class="text-muted">{{ result.date | date('d/m/Y') }}
+                                            </small>
+                                        </p>
+                                    </div>
+                                    {% if result.user.id == app.user.id  %}
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                {% if app.user != null %}
+                                                    {% for role in app.user.roles  %}
+                                                        {% if role == 'ROLE_ADMIN' %}
+                                                            <div class="button_delete_edit">
+                                                                <a  href="{{ path('post_edit', {'id':result.id}) }}" class="btn btn-outline-success"><i class="fas fa-edit"></i></a>
+                                                                <a  href="{{ path('post_delete', {'id':result.id}) }}" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-boddy">{{ result.title }}</h5>
+                                    <p class="card-text">{{ result.text | slice(0,50)}}..</p>
+                                    <img src="{{ asset("img/"~result.image) }}" class="card-img-top" alt="...">
+                                    <p>
+                                        <b>Tags</b>
+                                        {% for tag in result.tag %}
+                                            <span class="badge bg-success">{{ tag.name }}</span>
+                                        {% endfor %}
+                                    </p>
+                                    <p>
+                                        <b>Categoria</b>
+                                        {{ result.categoria.name }}
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <a href="#" class="btn btn-primary">Leer mas</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

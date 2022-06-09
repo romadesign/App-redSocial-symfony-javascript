@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{path('index')}}">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li>
+                    <div class="card-body">
+                        {{ render(controller('App\\Controller\\SearchController::searchBar')) }}
+                    </div>
+                </li>
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="{{path('register')}}">Registro</a>#}
+{#                </li>#}
+            </ul>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    {% if app.user != null %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="">{{ app.user.name }}</a>
+                    </li>
+                    {% endif %}
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% if not app.user %}
+                        <li><a class="dropdown-item" href="{{path('register')}}">Registro</a></li>
+                        <li><a class="dropdown-item" href="{{path('login')}}">Iniciar sesion</a></li>
+                        {% else %}
+                        {% if app.user != null %}
+                            {% for role in app.user.roles  %}
+                                {% if role == 'ROLE_ADMIN' %}
+{#                                    <li><a class="dropdown-item" href="{{path('post_add')}}">Agregar Post</a></li>#}
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{path('tags')}}">Tags</a></li>
+                                    <li><a class="dropdown-item" href="{{path('tags_add')}}">Agregar tag</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{path('categories')}}">Categorias</a></li>
+                                    <li><a class="dropdown-item" href="{{path('categories_add')}}">Agregar categoria</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        <li><a class="dropdown-item" href="{{path('logout')}}">Salir</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

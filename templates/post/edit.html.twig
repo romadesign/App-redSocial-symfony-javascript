@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            {{ form_start(form, {'enctype': 'multipart/form-data'}) }}
+            <div>
+                {{ form_label(form.title) }}
+                {{ form_errors(form.title) }}
+                {{ form_widget(form.title) }}
+                {{ form_help(form.title) }}
+            </div>
+            <div>
+                {{ form_label(form.text) }}
+                {{ form_errors(form.text) }}
+                {{ form_widget(form.text) }}
+                {{ form_help(form.text) }}
+            </div>
+            <img width="150px" src="{{ asset("img/"~post.image) }}" alt="">
+            <div>
+                {{ form_label(form.image) }}
+                {{ form_errors(form.image) }}
+                {{ form_widget(form.image) }}
+                {{ form_help(form.image) }}
+            </div>
+            <div>
+                {{ form_label(form.status) }}
+                {{ form_errors(form.status) }}
+                {{ form_widget(form.status) }}
+                {{ form_help(form.status) }}
+            </div>
+            <div>
+                {{ form_label(form.categoria) }}
+                {{ form_errors(form.categoria) }}
+                {{ form_widget(form.categoria) }}
+                {{ form_help(form.categoria) }}
+            </div>
+            <div>
+                {{ form_label(form.tag) }}
+                {{ form_errors(form.tag) }}
+                {{ form_widget(form.tag, {'value': tags_values}) }}
+                {{ form_help(form.tag) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+{% endblock %}

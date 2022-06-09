@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <h1>Tag: {{ title }}</h1>
+        <p>
+            {{ "now"|date("d/m/y") }}
+        </p>
+        {% set counter = 0 %}
+        {% for tag in tags %}
+            {% for post in tag.posts %}
+                {% if counter % 3 == 0 %}
+                    <div class="row">
+                {% endif %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ asset("img/"~post.image) }}" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.text|slice(0,100) }}..</p>
+                            <p>
+                                <b>Tags</b>
+                                {% for tag in post.tag %}
+                                    <spam>{{ tag.name }}</spam>
+                                {% endfor %}
+                            </p>
+                            <p>
+                                <b>Categoria</b>
+                                {{ post.categoria.name }}
+                            </p>
+                            <p>
+                                <b>Autor</b>
+                                {{ post.user.name }}
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <a href="#" class="btn btn-primary">Leer mas</a>
+                                </div>
+                                {% if app.user != null %}
+                                    {% for role in app.user.roles  %}
+                                        {% if role == 'ROLE_ADMIN' %}
+                                            <div class="d-flex">
+                                                <a  href="{{ path('post_edit', {'id':post.id}) }}" class="btn btn-outline-success">Editar</a>
+                                                <a  href="{{ path('post_delete', {'id':post.id}) }}" class="btn btn-outline-danger">Eliminar</a>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% set counter = counter +1 %}
+                {% if counter % 3 == 0 %}
+                    </div>
+                {% endif %}
+            {%  endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+         {% for message in app.session.flashBag().get('msg') %}
+             <div class="alert alert-success alert-dismissible fade show" role="alert">
+                 <strong>{{message}}</strong>
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
+         {% endfor %}
+        <a class="btn btn-primary" href="{{path('categories_add')}}">Agregar categorías</a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Options</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for categorie in categories %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ categorie.name }}</td>
+                    <td>{{ categorie.description }}</td>
+                    <td class="d-flex ">
+                        <div>
+                            <a href="{{ path('categorie_id',{id:categorie.id}) }}" class="btn btn-primary m-2">Editar</a>
+                        </div>
+                        <div>
+                            <a href="{{ path('categorie_delete',{id:categorie.id}) }}" class="btn btn-danger m-2">Eliminar</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

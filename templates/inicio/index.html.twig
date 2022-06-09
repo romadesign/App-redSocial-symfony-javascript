@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+
+
+    <div class="row d-flex justify-content-between">
+        <div class="col-md-3">
+            <div class="card mt-3">
+                <h5 class="card-header fw-bold fs-6">Categorías</h5>
+                <div class="card-body">
+                    <div class="ml-2 justify-content-center">
+                        {% for categorie in categories %}
+                            <a class=" categorie_url badge bg-primary" href="{{path('postPorCategorias',{'id':categorie.id})}}" >{{ categorie.name }} </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <h5 class="card-header fw-bold fs-6">Tags</h5>
+                <div class="card-body">
+                    {% for tag in tags_unique_items(tags) %}
+                        <a class="tags_url badge bg-success fst-italic" href="{{ path('postPorTags', {'name':tag}) }}" >{{ tag }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mt-3">
+            {% for type, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {{ render(controller('App\\Controller\\PostController::component')) }}
+
+            {% for post in posts %}
+                <div class="card mt-3">
+                    <div class="d-flex justify-content-between">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between border-bottom align-items-center">
+                                <div>
+                                    <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
+                                    <p class="badge text-dark text-md-start fs-6">
+                                        {{ post.user.name }}
+                                    </p>
+                                </div>
+                                <div class="d-flex">
+                                    <small class="text-muted">{{ post.date | date('d/m/Y') }}
+                                    </small>
+                                    {% if app.user != null %}
+                                    {% if post.user.id == app.user.id  %}
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                                                    {% for role in app.user.roles  %}
+                                                        {% if role == 'ROLE_ADMIN' %}
+                                                            <div class="button_delete_edit">
+                                                                <a  href="{{ path('post_edit', {'id':post.id}) }}" class="btn btn-outline-success"><i class="fas fa-edit"></i></a>
+                                                                <a  href="{{ path('post_delete', {'id':post.id}) }}" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-boddy">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.text | slice(0,50)}}..</p>
+                        <img src="{{ asset("img/"~post.image) }}" class="card-img-top" alt="...">
+                        <p>
+                            <b>Tags</b>
+                            {% for tag in post.tag %}
+                                <span class="badge bg-success">{{ tag.name }}</span>
+                            {% endfor %}
+                        </p>
+                        <p>
+                            <b>Categoria</b>
+                            {{ post.categoria.name }}
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <a href="#" class="btn btn-primary">Leer mas</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-3">
+            <div class="card mt-3">
+                <h5 class="card-header fw-bold fs-6">Contactos</h5>
+                <div class="card-body">
+                    <div class="ml-2 justify-content-center">
+                          Todos tus contactos agregados
+{#                        {% for categorie in categories %}#}
+{#                            <a class=" categorie_url badge bg-primary" href="{{path('postPorCategorias',{'id':categorie.id})}}" >{{ categorie.name }} </a>#}
+{#                        {% endfor %}#}
+                    </div>
+                </div>
+            </div>
+{#            <div class="card mt-3">#}
+{#                <h5 class="card-header fw-bold fs-6">Otras personas</h5>#}
+{#                <div class="card-body">#}
+{#                    <div class="ml-2 justify-content-center">#}
+{#                        {% for user in users %}#}
+{#                            <div class="d-flex justify-content-between">#}
+{#                                <div class="d-flex">#}
+{#                                    <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">#}
+{#                                    <div class="content_name_user">#}
+{#                                        {{ user.name }}#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="d-flex justify-content-between">#}
+{#                                    <div class="content_badge_roles">#}
+{#                                        {% for role in user.roles %}#}
+{#                                            {% if role == 'ROLE_USER' %}#}
+{#                                                <span class="badge bg-primary fw-normal">User</span>#}
+{#                                            {% elseif role == 'ROLE_ADMIN' %}#}
+{#                                                <span class="badge bg-danger fw-normal">Adm</span>#}
+{#                                            {% endif %}#}
+{#                                        {% endfor %}#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+            <div class="card mt-3">
+                <h5 class="card-header fw-bold fs-6">Otras personas</h5>
+                <div class="card-body">
+                    <div id="content_user_get" class="ml-2 justify-content-center">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block pagination %}
+    {% include 'post/pagination.html.twig' %}
+{% endblock %}
