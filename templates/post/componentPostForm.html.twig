@@ -11,10 +11,29 @@
                     <h5 class="modal-title" id="exampleModalLabel">Crear publicación</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+{#                <div class="modal-body">#}
+{#                    {{ form_start(form, {'action': path('post_add'), 'method':'POST'}) }}#}
+{#                    {{ form_widget(form) }}#}
+{#                    {{ form_end(form) }}#}
+{#                </div>#}
                 <div class="modal-body">
-                    {{ form_start(form, {'action': path('add'), 'method':'POST'}) }}
-                    {{ form_widget(form) }}
-                    {{ form_end(form) }}
+                    <div class="row">
+                        {{ form_start(form, {'attr' : {'class':'mt-3', 'id': 'addPost'} }) }}
+                        {{ form_row(form.title, {'attr' : {'id': 'title'} }) }}
+                        {{ form_row(form.text, {'attr' : {'id': 'text'} }) }}
+                        {{ form_row(form.image, {'attr' : {'id': 'image'} } ) }}
+                        <div class="d-flex">
+                            <div class="w-100">
+                                {{ form_row(form.status, {'attr' : {'id': 'status'} }) }}
+                            </div>
+                            <div class="w-100">
+                                {{ form_row(form.categoria, {'attr' : {'id': 'categoria'} }) }}
+                            </div>
+                        </div>
+                        {{ form_row(form.tag, {'attr' : {'id': 'tag'} }) }}
+                        {{ form_row(form.save, {'attr' : {'class':'btn btn-danger','id': 'add_btn'} }) }}
+                        {{ form_end(form) }}
+                    </div>
                 </div>
             </div>
         </div>

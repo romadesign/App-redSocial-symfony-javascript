@@ -33,9 +33,14 @@ a.tags_url{
     align-items: center !important;
 }
 .content_badge_roles span {
-    font-size: 0.56rem !important;
+    font-size: 0.30rem !important;
+    /*font-weight: 900 !important;*/
+}
+.content_badge_roles_options span{
+    font-size: 0.55rem !important;
     font-weight: 900 !important;
 }
+
 .content_name_user{
     font-size: 0.8rem;
     font-weight: 900 !important;

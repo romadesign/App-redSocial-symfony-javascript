@@ -65,10 +65,9 @@ class PostController extends AbstractController
 
 
     /**
-     * @Route("/post_add", name="add")
+     * @Route("/post_add", name="post_add")
      */
     public function add(Request $request, ManagerRegistry $doctrine){
-
       $entityManager = $doctrine->getManager();
       $post_repository = $entityManager->getRepository(Post::class);
       $form = $this->createForm(PostType::class, $this->post);
@@ -105,15 +104,19 @@ class PostController extends AbstractController
         $entityManager->persist($this->post);
         $flush = $entityManager->flush();
         if($flush === null){
-          $this->addFlash('success', "Realizaste un nuevo post.");
+          $msg = "El post se agrego con exito.";
+        }else{
+          $msg = "El tag no ha podido ser eliminado.";
         }
-        return $this->redirectToRoute('index');
+        $this->session->getFlashBag()->add('msg', $msg);
+//        return $this->redirectToRoute('index');
+        return new Response("User POST is successfully uploaded.");
       }
 
-      return $this->render('inicio/index.html.twig', [
-        'title' => 'Agregar nuevo post',
-        //'form' => $form->createView(),
-      ]);
+//      return $this->render('inicio/index.html.twig', [
+//        'title' => 'Agregar nuevo post',
+//        //'form' => $form->createView(),
+//      ]);
     }
 
     /**
@@ -259,4 +262,6 @@ class PostController extends AbstractController
       }
       return new JsonResponse($data);
     }
+
+
 }
