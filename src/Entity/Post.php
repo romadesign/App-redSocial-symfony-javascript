@@ -25,7 +25,7 @@ class Post
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="posts" )
      */
     private $categoria;
 
@@ -50,7 +50,7 @@ class Post
     private $image;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="posts" )
      */
     private $tag;
 
@@ -59,9 +59,15 @@ class Post
      */
     private $status;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Likes::class, mappedBy="publication")
+     */
+    private $likes;
+
     public function __construct()
     {
         $this->tag = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,6 +179,36 @@ class Post
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Likes>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Likes $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setPublication($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Likes $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getPublication() === $this) {
+                $like->setPublication(null);
+            }
+        }
 
         return $this;
     }

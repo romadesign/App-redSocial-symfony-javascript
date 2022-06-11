@@ -45,3 +45,11 @@ a.tags_url{
     font-size: 0.8rem;
     font-weight: 900 !important;
 }
+div#spinner1 {
+    display: flex;
+    justify-content: center;
+}
+.no-more {
+    opacity: 0;
+    display: none;
+}

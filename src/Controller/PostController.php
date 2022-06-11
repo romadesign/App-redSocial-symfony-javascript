@@ -25,9 +25,11 @@ class PostController extends AbstractController
       $this->post = new Post();
       $this->session = new Session();
     }
+
+
     /**
      * @Route("/{page}", requirements={"page" = "\d+"}, defaults={"page" = 1}, name="index")
-     */
+   */
     public function index($page=1, ManagerRegistry $doctrine): Response
     {
       $entityManager = $doctrine->getManager();

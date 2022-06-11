@@ -31,12 +31,13 @@
                                             </small>
                                         </p>
                                     </div>
+                                    {% if app.user != null %}
                                     {% if result.user.id == app.user.id  %}
                                         <div class="dropdown">
                                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                {% if app.user != null %}
+
                                                     {% for role in app.user.roles  %}
                                                         {% if role == 'ROLE_ADMIN' %}
                                                             <div class="button_delete_edit">
@@ -45,10 +46,11 @@
                                                             </div>
                                                         {% endif %}
                                                     {% endfor %}
-                                                {% endif %}
                                             </div>
                                         </div>
                                     {% endif %}
+                                    {% endif %}
+
                                 </div>
 
                                 <div class="card-body">

@@ -79,3 +79,29 @@ addPost.onsubmit = async (e) => {
     // let result = await response.json();
     // console.log(result['msg']);
 };
+
+
+$(function() {
+    let ias = new InfiniteAjaxScroll('.content-post', {
+        item: '.post-item',
+            next: '.pagination .link-next',
+        pagination: '.pagination',
+        spinner: {
+            element: '.spinner',
+            delay: 600,
+            show: function(element) {
+                element.style.opacity = '1'; // default behaviour
+            },
+
+            hide: function(element) {
+                element.style.opacity = '0'; // default behaviour
+            }
+        }
+    });
+    ias.on('last', function() {
+        let el = document.querySelector('.no-more');
+
+        el.style.opacity = '1';
+    })
+});
+
