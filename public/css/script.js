@@ -6,15 +6,21 @@ async function findAllUsers() {
     data.forEach(user => {
         document.getElementById("content_user_get").innerHTML += `
            <div class="d-flex justify-content-between  align-items-center">
-              <div class="d-flex  align-items-center">
-                 <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
-                 <div class="content_name_user">${user.name}</div>
-              </div>
-              <div class="d-flex justify-content-between">
-                  <div class="content_badge_roles">     
-                       <span class="badge bg-primary rounded-pill fw-normal">${user.roles[0] === 'ROLE_USER' ? '&nbsp;' : ''}</span>
-                       <span class="badge bg-danger rounded-pill fw-normal">${user.roles[1] === 'ROLE_ADMIN' ? '&nbsp;' : '' }</span>
+              <div class="content_user_roles">
+                  <div class="d-flex  align-items-center">
+                     <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
+                     <div class="content_name_user">${user.name}</div>
                   </div>
+                  <div class="roles_circle d-flex justify-content-between">
+                      <div class="content_badge_roles">     
+                         <span class="badge bg-primary rounded-pill fw-normal">${user.roles[0] === 'ROLE_USER' ? '&nbsp;' : ''}</span>
+                         <span class="badge bg-danger rounded-pill fw-normal">${user.roles[1] === 'ROLE_ADMIN' ? '&nbsp;' : '' }</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="d-flex">
+                <button type="button" class="btn btn-primary btn-sm btn-follow" onclick="capture(${user.id})">Seguir</button>
+                <button type="button" class="btn btn-danger btn-sm">Secondary</button>
               </div>
            </div>
         `;
@@ -55,6 +61,7 @@ async function add(e) {
 
 }
 
+
 const addPost = document.getElementById('addPost')
 addPost.onsubmit = async (e) => {
     e.preventDefault();
@@ -79,6 +86,37 @@ addPost.onsubmit = async (e) => {
     // let result = await response.json();
     // console.log(result['msg']);
 };
+
+
+async function capture(id) {
+    console.log(id)
+
+    var formData = new FormData();
+    var followed = id
+
+    formData.append('followed', followed);
+
+    fetch('/follow', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', response));
+
+
+
+
+
+    // const response = await fetch(`/follow`, {
+    //     method: 'POST',
+    //     body: id
+    // });
+    // const data = await response.json();
+    // console.log(data)
+
+
+}
 
 
 $(function() {

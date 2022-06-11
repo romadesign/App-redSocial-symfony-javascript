@@ -53,3 +53,19 @@ div#spinner1 {
     opacity: 0;
     display: none;
 }
+.btn-follow {
+    background: #0d6efd !important;
+    font-size: 0.65rem !important;
+    font-weight: 500 !important;
+    color: white !important;
+    border: 0 !important;
+}
+
+.content_user_roles{
+    position: relative;
+}
+
+.roles_circle {
+    position: absolute;
+    top: 0px;
+}
