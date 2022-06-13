@@ -1,46 +1,30 @@
+//Get Data user
 async function getDataUser(){
     const response = await fetch("/getUsersAjax");
     const data = await response.json();
     return data;
 }
-function user(data) {
-    console.log(data)
-}
-getDataUser().then(user)
 
-getDataFollowUser()
-async function getDataFollowUser(){
-    const response = await fetch("/getContacFollow");
-    const data = await response.json();
-    console.log(data)
-
-
-}
-
-
-
-findAllUsers()
-async function findAllUsers() {
+getDataUser().then(findAllUsers)
+function findAllUsers(data) {
     document.getElementById("content_user_get").innerHTML = "";
-    const response = await fetch(`/getUsersAjax`);
-    const data = await response.json();
-    data.forEach(user => {
+    data.forEach(users => {
         document.getElementById("content_user_get").innerHTML += `
            <div class="d-flex justify-content-between  align-items-center">
               <div class="content_user_roles">
                   <div class="d-flex  align-items-center">
                      <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
-                     <div class="content_name_user">${user.name}</div>
+                     <div class="content_name_user">${users.name}</div>
                   </div>
                   <div class="roles_circle d-flex justify-content-between">
                       <div class="content_badge_roles">     
-                         <span class="badge bg-primary rounded-pill fw-normal">${user.roles[0] === 'ROLE_USER' ? '&nbsp;' : ''}</span>
-                         <span class="badge bg-danger rounded-pill fw-normal">${user.roles[1] === 'ROLE_ADMIN' ? '&nbsp;' : '' }</span>
+                         <span class="badge bg-primary rounded-pill fw-normal">${users.roles[0] === 'ROLE_USER' ? '&nbsp;' : ''}</span>
+                         <span class="badge bg-danger rounded-pill fw-normal">${users.roles[1] === 'ROLE_ADMIN' ? '&nbsp;' : '' }</span>
                       </div>
                   </div>
               </div>
               <div class="d-flex">
-                <button type="button" class="btn btn-primary btn-sm btn-follow" onclick="capture(${user.id})">Seguir</button>
+                <button type="button" class="btn btn-primary btn-sm btn-follow" onclick="capture(${users.id})">Seguir</button>
                 <button type="button" class="btn btn-danger btn-sm">Secondary</button>
               </div>
            </div>
@@ -147,16 +131,10 @@ $(function() {
 
 });
 
-
-// use Doctrine\ORM\Query\Expr;
-
-
-// public function getFollowUser($id){
-//     $qb = $this->createQueryBuilder('f');
-//     $qb
-//         ->select('f')
-// ->innerJoin('App\Entity\User', 'u', Expr\Join::WITH, 'u.id = f.user')
-// ->andWhere('f.user = :id')
-// ->setParameter('id', $id);
-//     dump($qb->getQuery()->getResult());
-// }
+//Get data followed userId
+getDataFollowUser()
+async function getDataFollowUser(){
+    const response = await fetch("/getContacFollow");
+    const data = await response.json();
+    console.log(data, 'user seguidos')
+}
