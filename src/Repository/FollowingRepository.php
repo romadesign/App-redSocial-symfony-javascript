@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Following;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr;
 
 /**
  * @extends ServiceEntityRepository<Following>
@@ -63,4 +66,46 @@ class FollowingRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+      //Query select usuarios seguidos
+      public function getFollowUser($id){
+        $query = $this->createQueryBuilder('f' )
+          ->andWhere('f.user = :id')
+          ->setParameter('id', $id)
+          ->getQuery()
+          ->getResult();
+        return $query;
+
+      }
+
+//
+//$query = $this->createQueryBuilder('f' )
+//->innerJoin('f.user', 'u', 'WITH', 'u.id = f. user')
+//->andWhere('f.user = :id')
+//->setParameter('id', $id)
+//->getQuery()
+//->getResult();
+//return $query;
+//
+
+//
+//  public function getFollowUser($id){
+//    return $this->createQueryBuilder('follow')
+//      ->select('follow')
+//      ->innerJoin('App\Entity\User', 'user', Expr\Join::WITH, 'user.id = follow.user')
+//      ->andWhere('follow.user = :id')
+//      ->setParameter('id', $id)
+//      ->getQuery()
+//      ->getResult();
+//  }
+
+
+//  public function getFollowUser($id){
+//    return $this->createQueryBuilder('f')
+//      ->andWhere('f.user = :id')
+//      ->setParameter('id', $id)
+//      ->orderBy('f.id', 'ASC')
+//      ->getQuery()
+//      ->getResult();
+//  }
 }

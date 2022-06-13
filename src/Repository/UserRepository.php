@@ -87,4 +87,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $qb->select('u.name', 'u.email', 'u.roles');
         return $qb->getQuery()->getResult();
       }
+
+
 }

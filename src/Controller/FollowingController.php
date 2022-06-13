@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 
 class FollowingController extends AbstractController
@@ -44,11 +46,37 @@ class FollowingController extends AbstractController
         return new Response($msg);
     }
 
-    /**
-     * @Route("/unfollow", name="unfollow", methods={"POST"})
-     */
-    public function unfollow(Request $request): Response
-    {
-      return new Response('Un following');
-    }
+      /**
+       * @Route("/unfollow", name="unfollow", methods={"POST"})
+       */
+      public function unfollow(Request $request): Response
+      {
+        return new Response('Un following');
+      }
+
+
+      /**
+       * @Route("/getContacFollow", name="getContacFollow")
+       */
+      public function getContacFollow(ManagerRegistry $doctrine): Response
+      {
+        $id = $this->getUser()->getId();
+        $follow = $doctrine->getManager()->getRepository(Following::class)->getFollowUser($id);
+        $data = [];
+        $idx = 0;
+        foreach ($follow as $fo){
+          $temp = [
+            'followed_user_id' => $fo->getFollowed()->getId(),
+            'followed_email' => $fo->getFollowed()->getEmail(),
+            'followed_name' => $fo->getFollowed()->getName(),
+            'followed_img' => $fo->getFollowed()->getImg(),
+            'followed_subname' => $fo->getFollowed()->getSubname(),
+            'followed' => $fo->getFollowed(),
+          ];
+          $data[$idx++] = $temp;
+
+        }
+
+        return new JsonResponse($data);
+      }
 }

@@ -76,4 +76,6 @@ class UserController extends AbstractController
      */
       public function logout(){
       }// fin function
+
+
 }

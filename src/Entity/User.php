@@ -128,7 +128,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $notifications;
 
     /**
-     * @ORM\OneToMany(targetEntity=Following::class, mappedBy="user")
+     * @var Collection|Following[]
+     * @ORM\OneToMany(targetEntity=Following::class, mappedBy="user", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
      */
     private $followings;
 

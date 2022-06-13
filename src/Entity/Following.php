@@ -18,12 +18,12 @@ class Following
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="followings")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="followings", cascade={"all"}, fetch="EAGER")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="followings")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="followings", cascade={"all"}, fetch="EAGER")
      */
     private $followed;
 

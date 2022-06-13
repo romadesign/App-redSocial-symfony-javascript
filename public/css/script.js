@@ -1,3 +1,24 @@
+async function getDataUser(){
+    const response = await fetch("/getUsersAjax");
+    const data = await response.json();
+    return data;
+}
+function user(data) {
+    console.log(data)
+}
+getDataUser().then(user)
+
+getDataFollowUser()
+async function getDataFollowUser(){
+    const response = await fetch("/getContacFollow");
+    const data = await response.json();
+    console.log(data)
+
+
+}
+
+
+
 findAllUsers()
 async function findAllUsers() {
     document.getElementById("content_user_get").innerHTML = "";
@@ -26,7 +47,6 @@ async function findAllUsers() {
         `;
     })
 }
-
 
 
 async function add(e) {
@@ -61,7 +81,6 @@ async function add(e) {
 
 }
 
-
 const addPost = document.getElementById('addPost')
 addPost.onsubmit = async (e) => {
     e.preventDefault();
@@ -87,15 +106,11 @@ addPost.onsubmit = async (e) => {
     // console.log(result['msg']);
 };
 
-
 async function capture(id) {
     console.log(id)
-
     var formData = new FormData();
     var followed = id
-
     formData.append('followed', followed);
-
     fetch('/follow', {
         method: 'POST',
         body: formData
@@ -103,19 +118,6 @@ async function capture(id) {
         .then(response => response.json())
         .catch(error => console.error('Error:', error))
         .then(response => console.log('Success:', response));
-
-
-
-
-
-    // const response = await fetch(`/follow`, {
-    //     method: 'POST',
-    //     body: id
-    // });
-    // const data = await response.json();
-    // console.log(data)
-
-
 }
 
 
@@ -141,5 +143,20 @@ $(function() {
 
         el.style.opacity = '1';
     })
+
+
 });
 
+
+// use Doctrine\ORM\Query\Expr;
+
+
+// public function getFollowUser($id){
+//     $qb = $this->createQueryBuilder('f');
+//     $qb
+//         ->select('f')
+// ->innerJoin('App\Entity\User', 'u', Expr\Join::WITH, 'u.id = f.user')
+// ->andWhere('f.user = :id')
+// ->setParameter('id', $id);
+//     dump($qb->getQuery()->getResult());
+// }
