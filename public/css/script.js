@@ -1,35 +1,91 @@
-//Get Data user
-async function getDataUser(){
+//fetch all users
+async function getAllUser(){
     const response = await fetch("/getUsersAjax");
-    const data = await response.json();
-    return data;
+    const users = await response.json();
+    return users;
 }
 
-getDataUser().then(findAllUsers)
-function findAllUsers(data) {
+//fetch all followed users
+async function getAllUsersFollowed(){
+    const response = await fetch("/getContacFollow");
+    const followedUsers = await response.json()
+        .then((result) => {
+            return result;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    return followedUsers
+}
+
+getAllUser().then(allUsers)
+function allUsers(users) {
     document.getElementById("content_user_get").innerHTML = "";
-    data.forEach(users => {
-        document.getElementById("content_user_get").innerHTML += `
+    getAllUsersFollowed().then(followedUsers)
+    function followedUsers(youFollow) {
+        // Arreglo con Ids a filtrar a la lista de usuarios seguidos
+        const followId = youFollow.map(user => user.followed_user_id);
+        console.log(followId, 'todos los usuarisssssos para filtrar por id')
+
+        // Sólo mostrar los usuarios que no estoy siguiendo
+        const filteredUsers = users.filter(user => !followId.includes(user.id))
+        console.log(filteredUsers)
+        filteredUsers.forEach(user => {
+            document.getElementById("content_user_get").innerHTML += `
            <div class="d-flex justify-content-between  align-items-center">
               <div class="content_user_roles">
                   <div class="d-flex  align-items-center">
                      <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
-                     <div class="content_name_user">${users.name}</div>
+                     <div class="content_name_user">${user.name}</div>
                   </div>
                   <div class="roles_circle d-flex justify-content-between">
                       <div class="content_badge_roles">     
-                         <span class="badge bg-primary rounded-pill fw-normal">${users.roles[0] === 'ROLE_USER' ? '&nbsp;' : ''}</span>
-                         <span class="badge bg-danger rounded-pill fw-normal">${users.roles[1] === 'ROLE_ADMIN' ? '&nbsp;' : '' }</span>
+                         <span class="badge bg-primary rounded-pill fw-normal">${user.roles[0] === 'ROLE_USER' ? '&nbsp;' : ''}</span>
+                         <span class="badge bg-danger rounded-pill fw-normal">${user.roles[1] === 'ROLE_ADMIN' ? '&nbsp;' : '' }</span>
                       </div>
                   </div>
               </div>
               <div class="d-flex">
-                <button type="button" class="btn btn-primary btn-sm btn-follow" onclick="capture(${users.id})">Seguir</button>
-                <button type="button" class="btn btn-danger btn-sm">Secondary</button>
+                <button type="button" class="btn btn-primary btn-sm btn-follow" onclick="capture(${user.id})">Seguir</button>
               </div>
            </div>
         `;
-    })
+        })
+
+    }
+}
+
+
+getAllUsersFollowed().then(getFollowedUsers)
+function getFollowedUsers(followedUsers) {
+    document.getElementById("content_user_get_followed").innerHTML = "";
+    if(!followedUsers.length >= 1){
+        document.getElementById("content_user_get_followed").innerHTML += `
+            <div>No sigues a ninguna persona</div>
+        `
+    }else{
+        followedUsers.forEach(user => {
+            document.getElementById("content_user_get_followed").innerHTML += `
+               <div class="d-flex justify-content-between  align-items-center">
+                  <div class="content_user_roles">
+                      <div class="d-flex  align-items-center">
+                         <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
+                         <div class="content_name_user">${user.followed_name}</div>
+                      </div>
+                  </div>
+                  <div class="d-flex">
+                    <div class="">
+                      <a class="nav-link dropdown-toggle button_stop_following" data-bs-toggle="dropdown"  role="button" aria-expanded="false">Siguiendo</a>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#scrollspyHeading3">Enviar mensaje</a></li>
+                        <li><a class="dropdown-item" href="#scrollspyHeading3">Dejar de seguir</a></li>
+                      </ul>
+                    </div>
+                  </div>
+               </div>
+            `;
+        })
+    }
 }
 
 
@@ -70,7 +126,6 @@ addPost.onsubmit = async (e) => {
     e.preventDefault();
     let response = await fetch('/post_add', {
         method: 'POST',
-
         body: new FormData(addPost)
     }).then((response) => {
         if(response.ok){
@@ -131,10 +186,3 @@ $(function() {
 
 });
 
-//Get data followed userId
-getDataFollowUser()
-async function getDataFollowUser(){
-    const response = await fetch("/getContacFollow");
-    const data = await response.json();
-    console.log(data, 'user seguidos')
-}
