@@ -33,13 +33,14 @@ class FollowingRepository extends ServiceEntityRepository
         }
     }
 
+
     public function remove(Following $entity, bool $flush = false): void
     {
-        $this->getEntityManager()->remove($entity);
+      $this->getEntityManager()->remove($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+      if ($flush) {
+        $this->getEntityManager()->flush();
+      }
     }
 
 //    /**
@@ -74,6 +75,19 @@ class FollowingRepository extends ServiceEntityRepository
           ->setParameter('id', $id)
           ->getQuery()
           ->getResult();
+        return $query;
+
+      }
+
+      //Query select usuarios seguidos
+      public function delete($id){
+        $query = $this->delete('f' )
+          ->andWhere('f.id = :id')
+          ->setParameter('id', $id)
+          ->getQuery()
+          ->getResult();
+
+        dd($query);
         return $query;
 
       }

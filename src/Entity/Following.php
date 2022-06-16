@@ -17,13 +17,16 @@ class Following
      */
     private $id;
 
+    //* @ORM\ManyToOne(targetEntity=User::class, inversedBy="followings", cascade={"all"}, fetch="EAGER")
+    // cascade={"persist"}  <- delete solo un dato de la tabla y no en cascade
+
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="followings", cascade={"all"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="followings", cascade={"persist"})
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="followings", cascade={"all"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="followings", cascade={"persist"})
      */
     private $followed;
 

@@ -123,13 +123,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $likes;
 
     /**
-     * @ORM\OneToMany(targetEntity=Notifications::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Notifications::class, mappedBy="user", orphanRemoval=true)
      */
     private $notifications;
 
     /**
-     * @var Collection|Following[]
-     * @ORM\OneToMany(targetEntity=Following::class, mappedBy="user", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Following::class, mappedBy="user")
      */
     private $followings;
 

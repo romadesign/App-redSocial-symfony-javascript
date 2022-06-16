@@ -24,7 +24,6 @@ class FollowingController extends AbstractController
         $user = $this->getUser();
         $followed_id = $request->get('followed');
 
-
         $entityManager = $doctrine->getManager();
         $user_repository = $entityManager->getRepository(User::class);
 
@@ -47,13 +46,23 @@ class FollowingController extends AbstractController
     }
 
       /**
-       * @Route("/unfollow", name="unfollow", methods={"POST"})
+       * @Route("/unfollow/{id}", name="unfollow")
        */
-      public function unfollow(Request $request): Response
+      public function unfollow($id, Request $request, ManagerRegistry $doctrine): Response
       {
-        return new Response('Un following');
-      }
+        $entityManager = $doctrine->getManager();
+        $followed = $entityManager->getRepository(Following::class)->find($id);
 
+        $entityManager->remove($followed);
+        $flush = $entityManager->flush();
+        if($flush === null){
+          $msg = 'No you are not following this user';
+        }else{
+          $msg = 'Request failed';
+        }
+
+        return new Response($msg);
+      }
 
       /**
        * @Route("/getContacFollow", name="getContacFollow")
@@ -66,6 +75,7 @@ class FollowingController extends AbstractController
         $idx = 0;
         foreach ($follow as $fo){
           $temp = [
+            'id' => $fo->getId(),
             'followed_user_id' => $fo->getFollowed()->getId(),
             'followed_email' => $fo->getFollowed()->getEmail(),
             'followed_name' => $fo->getFollowed()->getName(),
@@ -74,7 +84,6 @@ class FollowingController extends AbstractController
             'followed' => $fo->getFollowed(),
           ];
           $data[$idx++] = $temp;
-
         }
 
         return new JsonResponse($data);

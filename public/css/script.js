@@ -25,7 +25,6 @@ function allUsers(users) {
     function followedUsers(youFollow) {
         // Arreglo con Ids a filtrar a la lista de usuarios seguidos
         const followId = youFollow.map(user => user.followed_user_id);
-        console.log(followId, 'todos los usuarisssssos para filtrar por id')
 
         // Sólo mostrar los usuarios que no estoy siguiendo
         const filteredUsers = users.filter(user => !followId.includes(user.id))
@@ -79,12 +78,15 @@ function getFollowedUsers(followedUsers) {
                          <div class="content_name_user">${user.followed_name}</div>
                       </div>
                   </div>
+                  <h2 id="cont" data-test="${user.followed_user_id}">${user.followed_user_id}</h2>
                   <div class="d-flex">
                     <div class="">
                       <a class="nav-link dropdown-toggle button_stop_following" data-bs-toggle="dropdown"  role="button" aria-expanded="false">Siguiendo</a>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#scrollspyHeading3">Enviar mensaje</a></li>
-                        <li><a class="dropdown-item" href="#scrollspyHeading3">Dejar de seguir</a></li>
+                        <li><a class="dropdown-item" >Enviar mensaje</a></li>
+                        <li><a class="dropdown-item button_deletefollow" 
+                         onclick='unfollow(${user.id})'
+                      >Dejar de seguir</a></li>
                       </ul>
                     </div>
                   </div>
@@ -151,6 +153,16 @@ addPost.onsubmit = async (e) => {
     // console.log(result['msg']);
 };
 
+
+async function unfollow(id) {
+    const response = await fetch(`/unfollow/${id}`);
+    const data = await response.json();
+
+        //Mostrando errodata por pantalla
+        console.log(data, 'malo');
+
+}
+
 async function follow(id) {
     console.log(id)
     var formData = new FormData();
@@ -166,6 +178,7 @@ async function follow(id) {
     getAllUser().then(allUsers)
     getAllUsersFollowed().then(getFollowedUsers)
 }
+
 
 
 $(function() {
