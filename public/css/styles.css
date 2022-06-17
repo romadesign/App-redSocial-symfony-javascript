@@ -1,5 +1,5 @@
 body{
-    /*background: #fff3f3;*/
+    background: #f0f2f5;
 }
 .button_delete_edit {
     display: grid;
@@ -71,9 +71,37 @@ div#spinner1 {
 }
 
 .button_stop_following {
-    border: 1px solid !important;
+    /*border: 1px solid !important;*/
     font-size: 0.65rem !important;
     font-weight: 500 !important;
     padding: 0.4rem !important;
     border-radius: 0.3rem !important;
+}
+
+.dropdown-menu[data-bs-popper] {
+    left: -128px !important;
+}
+
+.card{
+    border: 0px solid rgba(0,0,0,.125) !important;
+}
+
+.row.content-post {
+    padding: 1rem !important;
+}
+a#navbarDropdown {
+    background: #f0f2f5 !important;
+    border-radius: 1rem !important;
+    height: 34px !important;
+    width: 34px !important;
+}
+
+.post_content {
+    padding: 1rem;
+    display: flex;
+}
+
+.img_post {
+    height: 250px;
+    object-fit: cover;
 }

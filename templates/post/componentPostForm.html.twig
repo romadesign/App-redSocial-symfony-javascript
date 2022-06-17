@@ -1,42 +1,47 @@
-<div class="">
-    <div class="card p-3" data-bs-toggle="modal" data-bs-target="#modalPost">
-        <span class="badge rounded-pill bg-light text-dark p-3 text-md-start fs-6">¿Qué estás pensando?</span>
-    </div>
+<div class="shadow bg-body rounded">
+    <div class="post_content" data-bs-toggle="modal" data-bs-target="#modalPost">
+        <div>
+            <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
 
-    <!-- Modal -->
-    <div class="modal fade" id="modalPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Crear publicación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-{#                <div class="modal-body">#}
-{#                    {{ form_start(form, {'action': path('post_add'), 'method':'POST'}) }}#}
-{#                    {{ form_widget(form) }}#}
-{#                    {{ form_end(form) }}#}
-{#                </div>#}
-                <div class="modal-body">
-                    <div class="row">
-                        {{ form_start(form, {'attr' : {'class':'mt-3', 'id': 'addPost'} }) }}
-                        {{ form_row(form.title, {'attr' : {'id': 'title'} }) }}
-                        {{ form_row(form.text, {'attr' : {'id': 'text'} }) }}
-                        {{ form_row(form.image, {'attr' : {'id': 'image'} } ) }}
-                        <div class="d-flex">
-                            <div class="w-100">
-                                {{ form_row(form.status, {'attr' : {'id': 'status'} }) }}
-                            </div>
-                            <div class="w-100">
-                                {{ form_row(form.categoria, {'attr' : {'id': 'categoria'} }) }}
-                            </div>
+        </div>
+        <div class="w-100">
+            <span class="badge rounded-pill bg-light text-dark p-3 text-md-start fs-6 w-100">¿Qué estás pensando?</span>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crear publicación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {#                <div class="modal-body">#}
+            {#                    {{ form_start(form, {'action': path('post_add'), 'method':'POST'}) }}#}
+            {#                    {{ form_widget(form) }}#}
+            {#                    {{ form_end(form) }}#}
+            {#                </div>#}
+            <div class="modal-body">
+                <div class="row">
+                    {{ form_start(form, {'attr' : {'class':'mt-3', 'id': 'addPost'} }) }}
+                    {{ form_row(form.title, {'attr' : {'id': 'title'} }) }}
+                    {{ form_row(form.text, {'attr' : {'id': 'text'} }) }}
+                    {{ form_row(form.image, {'attr' : {'id': 'image'} } ) }}
+                    <div class="d-flex">
+                        <div class="w-100">
+                            {{ form_row(form.status, {'attr' : {'id': 'status'} }) }}
                         </div>
-                        {{ form_row(form.tag, {'attr' : {'id': 'tag'} }) }}
-                        {{ form_row(form.save, {'attr' : {'class':'btn btn-danger','id': 'add_btn'} }) }}
-                        {{ form_end(form) }}
+                        <div class="w-100">
+                            {{ form_row(form.categoria, {'attr' : {'id': 'categoria'} }) }}
+                        </div>
                     </div>
+                    {{ form_row(form.tag, {'attr' : {'id': 'tag'} }) }}
+                    {{ form_row(form.save, {'attr' : {'class':'btn btn-danger','id': 'add_btn'} }) }}
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
     </div>
 </div>
-

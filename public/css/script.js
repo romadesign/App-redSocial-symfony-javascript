@@ -22,16 +22,37 @@ getAllUser().then(allUsers)
 function allUsers(users) {
     document.getElementById("content_user_get").innerHTML = "";
     getAllUsersFollowed().then(followedUsers)
+
     function followedUsers(youFollow) {
-        // Arreglo con Ids a filtrar a la lista de usuarios seguidos
-        const followId = youFollow.map(user => user.followed_user_id);
-
-        // Sólo mostrar los usuarios que no estoy siguiendo
-        const filteredUsers = users.filter(user => !followId.includes(user.id))
-
-        if(!filteredUsers.length < 1){
-            filteredUsers.forEach(user => {
+        console.log(youFollow, 'asd')
+        if (youFollow === undefined ){
+            users.forEach(user => {
                 document.getElementById("content_user_get").innerHTML += `
+               <div class="d-flex justify-content-between  align-items-center">
+                  <div class="content_user_roles">
+                      <div class="d-flex  align-items-center">
+                         <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
+                         <div class="content_name_user">${user.name}</div>
+                      </div>
+                      <div class="roles_circle d-flex justify-content-between">
+                          <div class="content_badge_roles">     
+                             <span class="badge bg-primary rounded-pill fw-normal">${user.roles[0] === 'ROLE_USER' ? '&nbsp;' : ''}</span>
+                             <span class="badge bg-danger rounded-pill fw-normal">${user.roles[1] === 'ROLE_ADMIN' ? '&nbsp;' : '' }</span>
+                          </div>
+                      </div>
+                  </div>
+               </div>
+            `;
+            })
+        }
+        else{
+            // Arreglo con Ids a filtrar a la lista de usuarios seguidos
+            const followId = youFollow.map(user => user.followed_user_id);
+            // Sólo mostrar los usuarios que no estoy siguiendo
+            const filteredUsers = users.filter(user => !followId.includes(user.id))
+            if(!filteredUsers.length < 1){
+                filteredUsers.forEach(user => {
+                    document.getElementById("content_user_get").innerHTML += `
                <div class="d-flex justify-content-between  align-items-center">
                   <div class="content_user_roles">
                       <div class="d-flex  align-items-center">
@@ -50,11 +71,12 @@ function allUsers(users) {
                   </div>
                </div>
             `;
-            })
-        }else{
-            document.getElementById("content_user_get").innerHTML += `
+                })
+            }else{
+                document.getElementById("content_user_get").innerHTML += `
             <div>Ya agregastes a todos los usuarios registrados quieres más?. XD</div>
             `
+            }
         }
     }
 }
@@ -64,13 +86,19 @@ getAllUsersFollowed().then(getFollowedUsers)
 function getFollowedUsers(followedUsers) {
     document.getElementById("content_user_get_followed").innerHTML = "";
 
-    if(!followedUsers.length >= 1){
+    if (followedUsers == undefined){
         document.getElementById("content_user_get_followed").innerHTML += `
-            <div>No sigues a ninguna persona que esperas. :D</div>
+            <div class="text-center">Necesitas <a class="dropdown-item" href="">Iniciar sesion</a> para ver esta información</div>
+            
         `
     }else{
-        followedUsers.forEach(user => {
+        if(!followedUsers.length >= 1){
             document.getElementById("content_user_get_followed").innerHTML += `
+            <div>No sigues a ninguna persona que esperas. :D</div>
+        `
+        }else{
+            followedUsers.forEach(user => {
+                document.getElementById("content_user_get_followed").innerHTML += `
                <div class="d-flex justify-content-between  align-items-center">
                   <div class="content_user_roles">
                       <div class="d-flex  align-items-center">
@@ -78,7 +106,6 @@ function getFollowedUsers(followedUsers) {
                          <div class="content_name_user">${user.followed_name}</div>
                       </div>
                   </div>
-                  <h2 id="cont" data-test="${user.followed_user_id}">${user.followed_user_id}</h2>
                   <div class="d-flex">
                     <div class="">
                       <a class="nav-link dropdown-toggle button_stop_following" data-bs-toggle="dropdown"  role="button" aria-expanded="false">Siguiendo</a>
@@ -92,7 +119,8 @@ function getFollowedUsers(followedUsers) {
                   </div>
                </div>
             `;
-        })
+            })
+        }
     }
 }
 

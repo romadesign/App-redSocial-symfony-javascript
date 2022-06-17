@@ -36,13 +36,13 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: /post_add, roles: ROLE_ADMIN }
+        - { path: /post_add, roles: [ROLE_ADMIN, ROLE_USER] }
         - { path: /tags, roles: ROLE_ADMIN }
         - { path: /tags_add, roles: ROLE_ADMIN }
         - { path: /categories, roles: ROLE_ADMIN }
         - { path: /categories_add, roles: ROLE_ADMIN }
-        - { path: ^/post_delete, roles: ROLE_ADMIN }
-        - { path: ^/post_edit, roles: ROLE_ADMIN }
+        - { path: ^/post_delete, roles: [ROLE_ADMIN, ROLE_USER] }
+        - { path: ^/post_edit, roles: [ROLE_ADMIN, ROLE_USER]}
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

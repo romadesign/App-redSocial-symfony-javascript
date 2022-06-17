@@ -56,7 +56,7 @@
                                 <div class="card-body">
                                     <h5 class="card-boddy">{{ result.title }}</h5>
                                     <p class="card-text">{{ result.text | slice(0,50)}}..</p>
-                                    <img src="{{ asset("img/"~result.image) }}" class="card-img-top" alt="...">
+                                    <img src="{{ asset("img/"~result.image) }}" class="card-img-top img_post " alt="...">
                                     <p>
                                         <b>Tags</b>
                                         {% for tag in result.tag %}
@@ -67,11 +67,6 @@
                                         <b>Categoria</b>
                                         {{ result.categoria.name }}
                                     </p>
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <a href="#" class="btn btn-primary">Leer mas</a>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

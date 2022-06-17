@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{path('index')}}">Navbar</a>
+        <a class="navbar-brand" href="{{path('index')}}">SolutionsDev</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -15,16 +15,16 @@
 {#                    <a class="nav-link" href="{{path('register')}}">Registro</a>#}
 {#                </li>#}
             </ul>
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
-                    {% if app.user != null %}
+            <div class="navbar-nav ml-auto mb-2 mb-lg-0">
+                {% if app.user != null %}
                     <li class="nav-item">
                         <a class="nav-link" href="">{{ app.user.name }}</a>
                     </li>
-                    {% endif %}
+                {% endif %}
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu navbar_content" aria-labelledby="navbarDropdown">
                         {% if not app.user %}
                         <li><a class="dropdown-item" href="{{path('register')}}">Registro</a></li>
                         <li><a class="dropdown-item" href="{{path('login')}}">Iniciar sesion</a></li>
@@ -43,11 +43,11 @@
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
-                        <li><a class="dropdown-item" href="{{path('logout')}}">Salir</a></li>
+                        <li class="text-center"><a class="dropdown-item" href="{{path('logout')}}">Salir <i class="fas fa-power-off"></i></a> </li>
                         {% endif %}
                     </ul>
                 </li>
-            </ul>
+            </div>
         </div>
     </div>
 </nav>
