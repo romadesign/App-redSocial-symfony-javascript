@@ -60,7 +60,7 @@
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
                                                         {% for role in app.user.roles  %}
-                                                            {% if role == 'ROLE_ADMIN' %}
+                                                            {% if role == 'ROLE_USER' %}
                                                                 <div class="button_delete_edit">
                                                                     <a  href="{{ path('post_edit', {'id':post.id}) }}" class="btn btn-outline-success"><i class="fas fa-edit"></i></a>
                                                                     <a  href="{{ path('post_delete', {'id':post.id}) }}" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>

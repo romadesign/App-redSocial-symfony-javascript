@@ -155,12 +155,11 @@ addPost.onsubmit = async (e) => {
 
 
 async function unfollow(id) {
-    const response = await fetch(`/unfollow/${id}`);
-    const data = await response.json();
-
-        //Mostrando errodata por pantalla
-        console.log(data, 'malo');
-
+    fetch(`/unfollow/${id}`)
+        .then(response => response.json())
+        .then(data => console.log(data, 'llegie aca'));
+    getAllUser().then(allUsers)
+    getAllUsersFollowed().then(getFollowedUsers)
 }
 
 async function follow(id) {
