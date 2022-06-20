@@ -4,13 +4,10 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-md-3">
-            <div class="card-body">otros</div>
-        </div>
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="card-body d-flex justify-content-between">
                 <div>
-                    Estos son los resultados de tu busqueda:
+                    Estos son los resultados de tu búsqueda:
                     <span class="badge bg-light text-dark"> "{{ palabra }}"</span>
                 </div>
                 <div>Resultados:
@@ -21,7 +18,7 @@
                 <div class="row">
                     {% for result in results %}
                         <div class="col-md-4">
-                            <div class="card">
+                            <div class="card shadow bg-body rounded mt-2">
                                 <div class="d-flex">
                                     <div class="card-body d-flex align-items-center">
                                         <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
@@ -64,7 +61,7 @@
                                         {% endfor %}
                                     </p>
                                     <p>
-                                        <b>Categoria</b>
+                                        <b>Categoría</b>
                                         {{ result.categoria.name }}
                                     </p>
                                 </div>

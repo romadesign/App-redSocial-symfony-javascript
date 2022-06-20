@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{path('index')}}">SolutionsDev</a>
+        <a class="navbar-brand" href="{{path('index')}}">ROMACODE</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -18,7 +18,12 @@
             <div class="navbar-nav ml-auto mb-2 mb-lg-0">
                 {% if app.user != null %}
                     <li class="nav-item">
-                        <a class="nav-link" href="">{{ app.user.name }}</a>
+                        <a href="{{path('profile_edit',{'id':app.user.id})}}">
+                            <img class="rounded-circle img_profile" width="28px" src="{{ asset("img/"~app.user.img) }}" alt="">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('profile_edit',{'id':app.user.id})}}">{{ app.user.name }}</a>
                     </li>
                 {% endif %}
                 <li class="nav-item dropdown">
@@ -27,7 +32,7 @@
                     <ul class="dropdown-menu navbar_content" aria-labelledby="navbarDropdown">
                         {% if not app.user %}
                         <li><a class="dropdown-item" href="{{path('register')}}">Registro</a></li>
-                        <li><a class="dropdown-item" href="{{path('login')}}">Iniciar sesion</a></li>
+                        <li><a class="dropdown-item" href="{{path('login')}}">Iniciar sesión</a></li>
                         {% else %}
                         {% if app.user != null %}
                             {% for role in app.user.roles  %}
@@ -37,12 +42,12 @@
                                     <li><a class="dropdown-item" href="{{path('tags')}}">Tags</a></li>
                                     <li><a class="dropdown-item" href="{{path('tags_add')}}">Agregar tag</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="{{path('categories')}}">Categorias</a></li>
-                                    <li><a class="dropdown-item" href="{{path('categories_add')}}">Agregar categoria</a></li>
+                                    <li><a class="dropdown-item" href="{{path('categories')}}">Categorías</a></li>
+                                    <li><a class="dropdown-item" href="{{path('categories_add')}}">Agregar categoría</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                 {% endif %}
                             {% endfor %}
-                        {% endif %}
+                            {% endif %}
                         <li class="text-center"><a class="dropdown-item" href="{{path('logout')}}">Salir <i class="fas fa-power-off"></i></a> </li>
                         {% endif %}
                     </ul>

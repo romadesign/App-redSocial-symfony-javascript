@@ -77,7 +77,6 @@ class CategoryController extends AbstractController
       $form->handleRequest($request);
       if ($form->isSubmitted() && $form->isValid()) {
         $entityManager->persist($this->category);
-        dd($entityManager);
         $flush = $entityManager->flush();
         if($flush === null){
           $msg = "La categoria ha sido editada con exito.";

@@ -81,6 +81,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //        ;
 //    }
 
+      public function moveImg($file): string
+      {
+        $extension = $file->guessExtension();
+        $file_name = md5(uniqid('', true)).'.'.$extension;
+        $file->move("img", $file_name);
+        return $file_name;
+      }
 
       public function findAllUsers(){
         $qb = $this->createQueryBuilder('u');

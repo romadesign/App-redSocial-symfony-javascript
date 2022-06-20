@@ -9,7 +9,14 @@ body{
     position: absolute;
     padding: 0.2rem;
 }
-
+.navbar-light .navbar-brand {
+    color: rgb(76 76 76 / 90%);
+    font-weight: 800;
+}
+.navbar-light .navbar-toggler {
+    color: rgba(0,0,0,.55);
+    border-color: white;
+}
 a.categorie_url {
     text-decoration: none;
 }
@@ -21,8 +28,8 @@ a.tags_url{
     position: absolute !important;
     right: 0 !important;
     border-radius: 23px !important;
-    background: #337ab7 !important;
-    border: 1px solid #337ab7 !important;
+    background: #0d6efd !important;
+    border: 1px solid #0d6efd !important;
     color: white !important;
     font-weight: 500 !important;
 }
@@ -31,6 +38,8 @@ a.tags_url{
     color: #6c757d !important;
     display: flex !important;
     align-items: center !important;
+    font-size: 0.7rem;
+    font-weight: 400;
 }
 .content_badge_roles span {
     font-size: 0.30rem !important;
@@ -104,4 +113,45 @@ a#navbarDropdown {
 .img_post {
     height: 250px;
     object-fit: cover;
+}
+
+img.img_profile {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
+img.img_profile_post_content {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+img.rounded-circle.img_profile_post {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.4rem;
+}
+.post_select {
+    cursor: pointer !important;
+}
+a.categorie_url:hover {
+    background: white !important;
+}
+a.tags_url:hover{
+    background: white !important;
+    color: #198754;
+}
+p.badge.text-dark.text-md-start.fs-6 {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .content_col-one {
+        display: none;
+    }
+    .content_col-tree {
+        display: none;
+    }
 }

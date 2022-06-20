@@ -89,11 +89,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $subname;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
      * @Assert\Length(
      *      min = 2,
      *      max = 50,
@@ -102,8 +97,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * )
      * @Assert\Type(
      *     type="alpha",
-     *     message="El campo nombre no debe contener números {{ value }}."
+     *     message="El campo subname no debe contener números {{ value }}."
      * )
+     */
+    private $subname;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $date;
 
@@ -112,10 +112,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $posts;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image;
+//    /**
+//     * @ORM\Column(type="string", length=255)
+//     */
+//    private $image;
 
     /**
      * @ORM\OneToMany(targetEntity=Likes::class, mappedBy="user")
@@ -318,18 +318,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
+//
+//    public function getImage(): ?string
+//    {
+//        return $this->image;
+//    }
+//
+//    public function setImage(string $image): self
+//    {
+//        $this->image = $image;
+//
+//        return $this;
+//    }
 
     /**
      * @return Collection<int, Likes>

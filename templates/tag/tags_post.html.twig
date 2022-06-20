@@ -5,58 +5,59 @@
 {% block body %}
     <div class="row">
         <h1>Tag: {{ title }}</h1>
-        <p>
-            {{ "now"|date("d/m/y") }}
-        </p>
-        {% set counter = 0 %}
         {% for tag in tags %}
             {% for post in tag.posts %}
-                {% if counter % 3 == 0 %}
-                    <div class="row">
-                {% endif %}
-                <div class="col-md-4">
-                    <div class="card">
-                        <img class="card-img-top" src="{{ asset("img/"~post.image) }}" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                            <p class="card-text">{{ post.text|slice(0,100) }}..</p>
-                            <p>
-                                <b>Tags</b>
-                                {% for tag in post.tag %}
-                                    <spam>{{ tag.name }}</spam>
-                                {% endfor %}
-                            </p>
-                            <p>
-                                <b>Categoria</b>
-                                {{ post.categoria.name }}
-                            </p>
-                            <p>
-                                <b>Autor</b>
-                                {{ post.user.name }}
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <a href="#" class="btn btn-primary">Leer mas</a>
-                                </div>
-                                {% if app.user != null %}
+                <div class="col-md-4 mt-3">
+                    <div class="card shadow bg-body rounded p-3">
+                        <div class="d-flex justify-content-between border-bottom align-items-center ">
+                            <div class="d-flex align-items-center">
+                                <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
+                                <p class="badge text-dark p-3 text-md-start fs-6 cursor-pointer">
+                                    {{ post.user.name }}
+                                    <small class="text-muted">{{ post.date | date('d/m/Y') }}
+                                    </small>
+                                </p>
+                            </div>
+                            {% if app.user != null %}
+                                {% if post.user.id == app.user.id  %}
                                     {% for role in app.user.roles  %}
-                                        {% if role == 'ROLE_ADMIN' %}
+                                        {% if role == 'ROLE_USER' %}
                                             <div class="d-flex">
-                                                <a  href="{{ path('post_edit', {'id':post.id}) }}" class="btn btn-outline-success">Editar</a>
-                                                <a  href="{{ path('post_delete', {'id':post.id}) }}" class="btn btn-outline-danger">Eliminar</a>
+                                                <div class="">
+                                                    <a class="nav-link dropdown-toggle button_stop_following" data-bs-toggle="dropdown"  role="button" aria-expanded="false"></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item btn btn-outline-success text-center" href="{{ path('post_edit', {'id':post.id}) }}">Editar</a></li>
+                                                        <li><a class="dropdown-item btn btn-outline-danger text-center" href="{{ path('post_delete', {'id':post.id}) }}">Eliminar</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         {% endif %}
                                     {% endfor %}
                                 {% endif %}
-                            </div>
+                            {% endif %}
                         </div>
+                        <div class="card-body">
+                            <h5 class="card-boddy">{{ post.title }}</h5>
+                            {#                        <p class="card-text">{{ post.text|slice(0,100) }}..</p>#}
+                            <img class="card-img-top img_post" class="ratio" style="--bs-aspect-ratio: 50%;" src="{{ asset("img/"~post.image) }}" alt="">
+                            <p class="mt-2">
+                                <b>Tags</b>:
+                                {% for tag in post.tag %}
+                                    <spam class="badge bg-success">{{ tag.name }}</spam>
+                                {% endfor %}
+                            </p>
+                            <p>
+                                <b>Categoria</b>:
+                                <spam class="badge bg-primary">{{ post.categoria.name }}</spam>
+                            </p>
+                            {#                        <p class="text-uppercase fs-6 fw-bold text-body">#}
+                            {#                            <b>Autor</b>#}
+                            {#                            : {{ post.user.name }}#}
+                            {#                        </p>#}
+                        </div>
+
                     </div>
                 </div>
-
-                {% set counter = counter +1 %}
-                {% if counter % 3 == 0 %}
-                    </div>
-                {% endif %}
             {%  endfor %}
         {% endfor %}
     </div>

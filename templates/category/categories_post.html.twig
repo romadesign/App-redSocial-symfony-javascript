@@ -4,12 +4,12 @@
 
 {% block body %}
     <div class="row">
-        <h1>Categoria: {{ title }}</h1>
+        <h1>Categoría: {{ title }}</h1>
         {% for post in posts %}
-            <div class="col-md-3 mt-3">
-                <div class="card">
+            <div class="col-md-4 mt-3">
+                <div class="card shadow bg-body rounded p-3">
                     <div class="d-flex justify-content-between border-bottom align-items-center ">
-                        <div class="card-body d-flex align-items-center">
+                        <div class="d-flex align-items-center">
                             <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
                             <p class="badge text-dark p-3 text-md-start fs-6 cursor-pointer">
                                 {{ post.user.name }}
@@ -19,20 +19,19 @@
                         </div>
                         {% if app.user != null %}
                             {% if post.user.id == app.user.id  %}
-                                <div class="dropdown">
-                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        {% for role in app.user.roles  %}
-                                            {% if role == 'ROLE_USER' %}
-                                                <div class="button_delete_edit">
-                                                    <a  href="{{ path('post_edit', {'id':post.id}) }}" class="btn btn-outline-success"><i class="fas fa-edit"></i></a>
-                                                    <a  href="{{ path('post_delete', {'id':post.id}) }}" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
-                                                </div>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                </div>
+                                {% for role in app.user.roles  %}
+                                    {% if role == 'ROLE_USER' %}
+                                        <div class="d-flex">
+                                            <div class="">
+                                                <a class="nav-link dropdown-toggle button_stop_following" data-bs-toggle="dropdown"  role="button" aria-expanded="false"></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item btn btn-outline-success text-center" href="{{ path('post_edit', {'id':post.id}) }}">Editar</a></li>
+                                                    <li><a class="dropdown-item btn btn-outline-danger text-center" href="{{ path('post_delete', {'id':post.id}) }}">Eliminar</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
                             {% endif %}
                         {% endif %}
                     </div>

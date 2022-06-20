@@ -24,14 +24,15 @@ function allUsers(users) {
     getAllUsersFollowed().then(followedUsers)
 
     function followedUsers(youFollow) {
-        console.log(youFollow, 'asd')
         if (youFollow === undefined ){
             users.forEach(user => {
+                console.log(user.img, 'asd')
+
                 document.getElementById("content_user_get").innerHTML += `
                <div class="d-flex justify-content-between  align-items-center">
                   <div class="content_user_roles">
                       <div class="d-flex  align-items-center">
-                         <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
+                         <img class="img_profile" src="/img/${user.img}" alt="">
                          <div class="content_name_user">${user.name}</div>
                       </div>
                       <div class="roles_circle d-flex justify-content-between">
@@ -56,7 +57,7 @@ function allUsers(users) {
                <div class="d-flex justify-content-between  align-items-center">
                   <div class="content_user_roles">
                       <div class="d-flex  align-items-center">
-                         <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
+                         <img class="img_profile" src="/img/${user.img}" alt="">
                          <div class="content_name_user">${user.name}</div>
                       </div>
                       <div class="roles_circle d-flex justify-content-between">
@@ -102,7 +103,7 @@ function getFollowedUsers(followedUsers) {
                <div class="d-flex justify-content-between  align-items-center">
                   <div class="content_user_roles">
                       <div class="d-flex  align-items-center">
-                         <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
+                         <img class="img_profile" src="/img/${user.followed_img}" alt="">
                          <div class="content_name_user">${user.followed_name}</div>
                       </div>
                   </div>
@@ -110,8 +111,8 @@ function getFollowedUsers(followedUsers) {
                     <div class="">
                       <a class="nav-link dropdown-toggle button_stop_following" data-bs-toggle="dropdown"  role="button" aria-expanded="false">Siguiendo</a>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" >Enviar mensaje</a></li>
-                        <li><a class="dropdown-item button_deletefollow" 
+                        <li><a class="dropdown-item text-center" >Enviar mensaje</a></li>
+                        <li><a class="dropdown-item button_deletefollow text-center" 
                          onclick='unfollow(${user.id})'
                       >Dejar de seguir</a></li>
                       </ul>
