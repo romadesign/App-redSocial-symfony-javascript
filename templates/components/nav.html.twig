@@ -16,15 +16,17 @@
 {#                </li>#}
             </ul>
             <div class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <div class="content_navbar">
                 {% if app.user != null %}
-                    <li class="nav-item">
-                        <a href="{{path('profile_edit',{'id':app.user.id})}}">
-                            <img class="rounded-circle img_profile" width="28px" src="{{ asset("img/"~app.user.img) }}" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{path('profile_edit',{'id':app.user.id})}}">{{ app.user.name }}</a>
-                    </li>
+
+                        <li class="nav-item">
+                            <a href="{{path('profile_edit',{'id':app.user.id})}}">
+                                <img class="rounded-circle img_profile" width="28px" src="{{ asset("img/"~app.user.img) }}" alt="">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('profile_edit',{'id':app.user.id})}}">{{ app.user.name }}</a>
+                        </li>
                 {% endif %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,10 +50,12 @@
                                 {% endif %}
                             {% endfor %}
                             {% endif %}
+                        <li class="text-center"><a class="dropdown-item" href="{{path('profile_edit',{'id':app.user.id})}}">Perfil</a> </li>
                         <li class="text-center"><a class="dropdown-item" href="{{path('logout')}}">Salir <i class="fas fa-power-off"></i></a> </li>
                         {% endif %}
                     </ul>
                 </li>
+                </div>
             </div>
         </div>
     </div>

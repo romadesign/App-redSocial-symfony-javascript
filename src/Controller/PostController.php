@@ -133,63 +133,67 @@ class PostController extends AbstractController
       $post_repository = $entityManager->getRepository(Post::class);
 
         //capture userLogin $this->getUser()->getId()
-      if($this->getUser()->getId() === $this->post->getUser()->getId()){
-        $post_tags = null;
-        foreach ($this->post->getTag() as $tag_post) {
-          $r_tag = $tag_repo->find($tag_post->getId());
-          $entityManager->remove($r_tag);
-          $tags[] = $r_tag->getName();
-          $post_tags = implode(',', $tags);
-          $this->post->removeTag($tag_post);
-          $entityManager->persist($this->post);
-        }
-        $form  = $this->createForm(PostType::class, $this->post);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-          //datos que vienen del formulario
-          $form_title = $form->get('title')->getData();
-          $form_text = $form->get('text')->getData();
-          $form_image = $form->get('image')->getData();
-          $form_status = $form->get('status')->getData();
-          $form_categorie = $form->get('categoria')->getData();
-          $form_tag = $form->get('tag')->getData();
-
-          //datos ingresados por el controlador
-          $user = $this->getUser();
-
-          //setear los datos
-          $this->post->setUser($user);
-          $this->post->setTitle($form_title);
-          $this->post->setText($form_text);
-          $this->post->setDate(new \DateTime('now'));
-          $this->post->setStatus($form_status);
-          //$this->post->setCategoria($form_categorie);
-          //$this->post->addTag($form_tag);
-
-          //image
-          if ($form_image != null){
-            $name_img = $post_repository->moveImgToDirectory($form_image);
-            $this->post->setImage($name_img);
+      if ($this->post === null){
+        return $this->redirectToRoute('index');
+      }else{
+        if($this->getUser()->getId() === $this->post->getUser()->getId()){
+          $post_tags = null;
+          foreach ($this->post->getTag() as $tag_post) {
+            $r_tag = $tag_repo->find($tag_post->getId());
+            $entityManager->remove($r_tag);
+            $tags[] = $r_tag->getName();
+            $post_tags = implode(',', $tags);
+            $this->post->removeTag($tag_post);
+            $entityManager->persist($this->post);
           }
+          $form  = $this->createForm(PostType::class, $this->post);
+          $form->handleRequest($request);
 
-          if(!empty($form_tag)){
-            $post_repository->savePostTags($form_tag, $this->post);
+          if ($form->isSubmitted() && $form->isValid()){
+            //datos que vienen del formulario
+            $form_title = $form->get('title')->getData();
+            $form_text = $form->get('text')->getData();
+            $form_image = $form->get('image')->getData();
+            $form_status = $form->get('status')->getData();
+            $form_categorie = $form->get('categoria')->getData();
+            $form_tag = $form->get('tag')->getData();
+
+            //datos ingresados por el controlador
+            $user = $this->getUser();
+
+            //setear los datos
+            $this->post->setUser($user);
+            $this->post->setTitle($form_title);
+            $this->post->setText($form_text);
+            $this->post->setDate(new \DateTime('now'));
+            $this->post->setStatus($form_status);
+            //$this->post->setCategoria($form_categorie);
+            //$this->post->addTag($form_tag);
+
+            //image
+            if ($form_image != null){
+              $name_img = $post_repository->moveImgToDirectory($form_image);
+              $this->post->setImage($name_img);
+            }
+
+            if(!empty($form_tag)){
+              $post_repository->savePostTags($form_tag, $this->post);
+            }
+
+            $entityManager->persist($this->post);
+            $flush = $entityManager->flush();
+            if($flush === null){
+              $this->addFlash('success', "El post ha sido editado con exito en la bbdd.");
+            }
+            return $this->redirectToRoute('index');
           }
-
-          $entityManager->persist($this->post);
-          $flush = $entityManager->flush();
-          if($flush === null){
-            $this->addFlash('success', "El post ha sido editado con exito en la bbdd.");
+        }else{
+          $flushs = $entityManager->flush();
+          if($flushs === null){
+            $this->addFlash('danger', 'Estas intentando editar un post que no te pertence');
           }
           return $this->redirectToRoute('index');
         }
-      }else{
-        $flushs = $entityManager->flush();
-        if($flushs === null){
-          $this->addFlash('danger', 'Estas intentando editar un post que no te pertence');
-        }
-        return $this->redirectToRoute('index');
       }
       return $this->render('post/edit.html.twig', [
         'title' => 'Editar categoria',

@@ -120,7 +120,11 @@ class CategoryController extends AbstractController
     {
       $entityManager = $doctrine->getManager();
       $categorie = $entityManager->getRepository(Category::class)->find($id);
-      $posts = $categorie->getPosts();
+      if ($categorie != null){
+        $posts = $categorie->getPosts();
+      }else{
+        return $this->redirectToRoute('index');
+      }
       return $this->render('category/categories_post.html.twig', [
         'title' => $categorie->getName(),
         'posts' => $posts,

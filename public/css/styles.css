@@ -17,6 +17,9 @@ body{
     color: rgba(0,0,0,.55);
     border-color: white;
 }
+.content_navbar{
+    display: flex;
+}
 a.categorie_url {
     text-decoration: none;
 }
@@ -103,6 +106,7 @@ a#navbarDropdown {
     border-radius: 1rem !important;
     height: 34px !important;
     width: 34px !important;
+    text-align: center;
 }
 
 .post_content {
@@ -146,6 +150,10 @@ a.tags_url:hover{
 p.badge.text-dark.text-md-start.fs-6 {
     margin: 0;
 }
+.content_badge_roles {
+    display: inherit;
+    gap: 0.2rem;
+}
 
 @media (max-width: 768px) {
     .content_col-one {
@@ -153,5 +161,13 @@ p.badge.text-dark.text-md-start.fs-6 {
     }
     .content_col-tree {
         display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .content_navbar{
+        display: flex;
+        justify-content: center;
+        gap: 0.7rem;
     }
 }
