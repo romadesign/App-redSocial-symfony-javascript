@@ -35,18 +35,8 @@
                 {% endfor %}
             {% endfor %}
 
-            {% if app.user != null %}
-            {{ render(controller('App\\Controller\\PostController::component')) }}
-            {% else %}
-                <div class=" shadow bg-body rounded post_content d-flex justify-content-center align-items-center">
-                    <div>
-                        <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
-                    </div>
-                    <div class="w-100">
-                        <a class="" href="{{path('login')}}"><span class="badge rounded-pill bg-light text-dark p-3 text-md-start fs-6 w-100">Inicia sesión para realizar un post</span></a>
-                    </div>
-                </div>
-            {% endif %}
+                {{ render(controller('App\\Controller\\PostController::component')) }}
+
             <div class="row content-post ">
                 {% for post in posts %}
                     <div class="card mt-3 post-item shadow p-3 mb-3 bg-body rounded">
@@ -97,19 +87,26 @@
                                 {% endfor %}
                             </p>
                             <p>
-                                <b>Categoria</b>
-                                {{ post.categoria.name }}
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <b>Categoria</b>
+                                        {{ post.categoria.name }}
+                                    </div>
+                                    <i class="fas fa-heart like-btn"
+                                        onclick="like({{ post.id }})"
+                                    ></i>
+
+                                </div>
                             </p>
                         </div>
                     </div>
                 {% endfor %}
-                <div id="spinner1" class="text-center mt-3 spinner">
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
+            </div>
+            <div id="spinner1" class="text-center mt-3 spinner">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
-            <div class="no-more">No more pages</div>
         </div>
         <div class="col-md-3 content_col-tree">
             <div class="card mt-3 shadow bg-body rounded">

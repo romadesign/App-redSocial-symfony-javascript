@@ -112,7 +112,7 @@ class PostController extends AbstractController
         }
         $this->session->getFlashBag()->add('msg', $msg);
 //        return $this->redirectToRoute('index');
-        return new Response("User POST is successfully uploaded.");
+        return new JsonResponse(['msg' => $msg]);
       }
 
 //      return $this->render('inicio/index.html.twig', [
@@ -267,6 +267,45 @@ class PostController extends AbstractController
         $data[$idx++] = $temp;
       }
       return new JsonResponse($data);
+    }
+    /**
+     * @Route("/getPostAll", name="getPostAll")
+     */
+    public  function getPostAll(ManagerRegistry $doctrine){
+      $posts = $doctrine->getManager()->getRepository(Post::class)->findAll();
+      $data = [];
+      $idx = 0;
+
+      foreach ($posts as $post){
+        $data_tag = [];
+        $idx_tag = 0;
+        //capture data tags
+        $tag_post = $post->getTag()->toArray();
+        //Recorriendo los tags para mostrarlos en formato json
+        foreach ($tag_post as $post_tag){
+          $temp_tag = [
+            'tag' => $post_tag->getId(),
+            'name' => $post_tag->getName()
+          ];
+          $data_tag[$idx_tag++] = $temp_tag;
+        }
+
+
+        $temp = [
+          'id' => $post->getId(),
+          'user' => $post->getUser()->getId(),
+          'categorie_name' => $post->getCategoria()->getName(),
+          'title' => $post->getTitle(),
+          'text' => $post->getText(),
+          'tag' => $data_tag,
+          'image' => $post->getImage(),
+          's' => $post->getLikes(),
+        ];
+        $data[$idx++] = $temp;
+      }
+
+      return new JsonResponse($data);
+//      return new Response(json_encode($data));
     }
 
 

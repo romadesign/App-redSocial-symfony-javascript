@@ -29,7 +29,7 @@ class FollowingController extends AbstractController
 
         $followed = $user_repository->find($followed_id);
 
-        $following = new Following;
+        $following = new Following();
         $following->setUser($user);
         $following->setFollowed($followed);
 

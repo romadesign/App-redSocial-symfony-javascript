@@ -50,7 +50,7 @@ class Post
     private $image;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="posts" )
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="posts", orphanRemoval=true, cascade={"persist"})
      */
     private $tag;
 

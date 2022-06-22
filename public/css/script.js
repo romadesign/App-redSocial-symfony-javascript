@@ -161,22 +161,24 @@ async function add(e) {
 const addPost = document.getElementById('addPost')
 addPost.onsubmit = async (e) => {
     e.preventDefault();
+    let objects = [];
     let response = await fetch('/post_add', {
         method: 'POST',
         body: new FormData(addPost)
     }).then((response) => {
         if(response.ok){
-            console.log(response.headers.get('Content-Type'))
-            console.log(response.statusText)
-            alert("the call works ok")
-            alert(response.ok)
-            alert(response.text())
+            console.log(response.json())
             addPost.reset();
-            // window.location.reload()
+            window.location.reload()
         }
-    }).then(response => response.json())
-        .then(data => console.log(data)) // the data
-        .catch(error => console.log(error))
+    }).catch(error => console.log(error))
+
+        // .then(value => value.json())
+        // .then(value => {
+        //     const msg = JSON.stringify(value['msg'])
+        //     console.log(msg)
+        //     addPost.reset();
+        // })
 
     // let result = await response.json();
     // console.log(result['msg']);
@@ -212,7 +214,7 @@ async function follow(id) {
 $(function() {
     let ias = new InfiniteAjaxScroll('.content-post', {
         item: '.post-item',
-            next: '.pagination .link-next',
+        next: '.pagination .link-next',
         pagination: '.pagination',
         spinner: {
             element: '.spinner',
@@ -228,11 +230,37 @@ $(function() {
     });
     ias.on('last', function() {
         let el = document.querySelector('.no-more');
-
         el.style.opacity = '1';
     })
+
 
 
 });
 
 
+// function likeBtn(){
+//     $(".like-btn").unbind("click").click(function (){
+//         $(this).addClass("d-none");
+//         $(this).parent().find(".unlike-btn").removeClass("d-none")
+//
+//         $.ajax({
+//             url: '/like',
+//             data: {publication: $(this).attr('data-btn-like')},
+//             type: 'POST',
+//             success: function (data){
+//                 console.log(data)
+//             }
+//         })
+//     })
+// }
+
+
+
+
+async function like(id) {
+    document.querySelector(".like-btn") == ''
+    console.log(id)
+    var usbx = document.querySelector(".like-btn");
+    usbx.style.color = "blue";
+
+}
