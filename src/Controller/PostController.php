@@ -290,6 +290,17 @@ class PostController extends AbstractController
           $data_tag[$idx_tag++] = $temp_tag;
         }
 
+        $data_like = [];
+        $idx_like = 0;
+        $post_like = $post->getLikes()->toArray();
+        foreach ($post_like as $like_post){
+          $temp_like = [
+            'like' => $like_post->getId(),
+            'user' => $like_post->getUser(),
+            'post' => $like_post->getPublication(),
+          ];
+          $data_like[$idx_like++] = $temp_like;
+        }
 
         $temp = [
           'id' => $post->getId(),
@@ -299,10 +310,12 @@ class PostController extends AbstractController
           'text' => $post->getText(),
           'tag' => $data_tag,
           'image' => $post->getImage(),
-          's' => $post->getLikes(),
+          'like' => $data_like,
         ];
+
         $data[$idx++] = $temp;
       }
+      dd($data);
 
       return new JsonResponse($data);
 //      return new Response(json_encode($data));

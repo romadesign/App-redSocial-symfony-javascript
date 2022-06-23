@@ -23,7 +23,7 @@ class Likes
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="likes")
+     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="likes", cascade={"persist"})
        */
       private $publication;
 
