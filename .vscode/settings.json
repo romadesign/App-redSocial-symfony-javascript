@@ -1,0 +1,7 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "workbench.colorTheme": "Visual Studio Light",
+  "workbench.preferredDarkColorTheme": "Visual Studio Light",
+  "workbench.sideBar.location": "left"
+}

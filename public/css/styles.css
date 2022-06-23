@@ -19,6 +19,7 @@ body{
 }
 .content_navbar{
     display: flex;
+    align-items: center;
 }
 a.categorie_url {
     text-decoration: none;
@@ -136,6 +137,10 @@ img.rounded-circle.img_profile_post {
     width: 40px;
     height: 40px;
     margin-right: 0.4rem;
+}
+img.rounded-circle.img_profile_nav{
+    width: 40px;
+    height: 40px;
 }
 .post_select {
     cursor: pointer !important;

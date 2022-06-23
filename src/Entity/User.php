@@ -24,13 +24,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     //email validation
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-      $metadata->addConstraint(new UniqueEntity([
-        'fields' => ['email', 'email'],
-        'errorPath' => 'email',
-        'message' => 'El email ya esta en uso.',
-      ]));
+        $metadata->addConstraint(new UniqueEntity([
+            'fields' => ['email', 'email'],
+            'errorPath' => 'email',
+            'message' => 'El email ya esta en uso.',
+        ]));
 
-      $metadata->addPropertyConstraint('email', new Assert\Email());
+        $metadata->addPropertyConstraint('email', new Assert\Email());
     }
 
 
@@ -112,10 +112,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $posts;
 
-//    /**
-//     * @ORM\Column(type="string", length=255)
-//     */
-//    private $image;
+    //    /**
+    //     * @ORM\Column(type="string", length=255)
+    //     */
+    //    private $image;
 
     /**
      * @ORM\OneToMany(targetEntity=Likes::class, mappedBy="user")
@@ -318,18 +318,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-//
-//    public function getImage(): ?string
-//    {
-//        return $this->image;
-//    }
-//
-//    public function setImage(string $image): self
-//    {
-//        $this->image = $image;
-//
-//        return $this;
-//    }
+    //
+    //    public function getImage(): ?string
+    //    {
+    //        return $this->image;
+    //    }
+    //
+    //    public function setImage(string $image): self
+    //    {
+    //        $this->image = $image;
+    //
+    //        return $this;
+    //    }
 
     /**
      * @return Collection<int, Likes>

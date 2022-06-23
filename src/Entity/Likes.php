@@ -24,10 +24,10 @@ class Likes
 
     /**
      * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="likes", cascade={"persist"})
-       */
-      private $publication;
+     */
+    private $publication;
 
-      public function getId(): ?int
+    public function getId(): ?int
     {
         return $this->id;
     }

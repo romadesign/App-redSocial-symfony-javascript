@@ -16,15 +16,15 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Tag
 {
-  //validation name uniqueEntity
-  public static function loadValidatorMetadata(ClassMetadata $metadata)
-  {
-    $metadata->addConstraint(new UniqueEntity([
-      'fields' => ['name', 'name'],
-      'errorPath' => 'name',
-      'message' => "No puedes tener 2 tags con el mismo titulo",
-    ]));
-  }
+    //validation name uniqueEntity
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addConstraint(new UniqueEntity([
+            'fields' => ['name', 'name'],
+            'errorPath' => 'name',
+            'message' => "No puedes tener 2 tags con el mismo titulo",
+        ]));
+    }
 
     /**
      * @ORM\Id
