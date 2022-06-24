@@ -272,10 +272,10 @@ class PostController extends AbstractController
     }
     return new JsonResponse($data);
   }
+
   /**
    * @Route("/getPostAll/{page}", name="getPostAll" , requirements={"page" = "\d+"}, defaults={"page" = 1},)
    */
-
   public  function getPostAll($page = 1, ManagerRegistry $doctrine)
   {
     $entityManager = $doctrine->getManager();
@@ -325,7 +325,6 @@ class PostController extends AbstractController
 
       $data[$idx++] = $temp;
     }
-
 
     return new JsonResponse($data);
     //      return new Response(json_encode($data));

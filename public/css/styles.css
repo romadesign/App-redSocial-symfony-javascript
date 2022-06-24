@@ -9,13 +9,14 @@ body{
     position: absolute;
     padding: 0.2rem;
 }
-.navbar-light .navbar-brand {
-    color: rgb(76 76 76 / 90%);
-    font-weight: 800;
+.content_bar{
+    background-color: #f0f2f5 !important;
+    padding: 0 !important;
 }
-.navbar-light .navbar-toggler {
-    color: rgba(0,0,0,.55);
-    border-color: white;
+
+.navbar-light .navbar-brand {
+    color: rgb(13 110 253);
+    font-weight: 800;
 }
 .content_navbar{
     display: flex;
@@ -109,6 +110,9 @@ a#navbarDropdown {
     width: 34px !important;
     text-align: center;
 }
+.content_post {
+    padding-top: 4rem;
+}
 
 .post_content {
     padding: 1rem;
@@ -159,6 +163,14 @@ p.badge.text-dark.text-md-start.fs-6 {
     display: inherit;
     gap: 0.2rem;
 }
+.row.content_form_login {
+    height: 100vh;
+    margin: 0 auto;
+    align-items: center;
+}
+.login{
+    margin: 0 auto;
+}
 
 @media (max-width: 768px) {
     .content_col-one {
@@ -166,6 +178,12 @@ p.badge.text-dark.text-md-start.fs-6 {
     }
     .content_col-tree {
         display: none;
+    }
+    .content_post {
+        padding-top: 3rem;
+    }
+    .content_bar{
+        padding: 0.8rem 0 0.8rem 0 !important;
     }
 }
 
