@@ -16,8 +16,9 @@ class LikeController extends AbstractController
   /**
    * @Route("/like", name="like", methods={"POST"})
    */
-  public function index(ManagerRegistry $doctrine, Request $request): Response
+  public function like(ManagerRegistry $doctrine, Request $request): Response
   {
+
     $user = $this->getUser();
     $publication_id = $request->get('publication');
 
@@ -34,11 +35,36 @@ class LikeController extends AbstractController
     $flush = $entityManager->flush();
 
     if ($flush === null) {
-      $msg = 'No you are like this publication';
-    } else {
-      $msg = 'Like action failed, please try later.';
+      $msg = 'like this publication';
     }
 
-    return new Response($msg);
+    return $this->json(['code' => 200, 'message' => $msg], 200);
+  }
+
+  /**
+   * @Route("/unlike", name="unlike")
+   */
+  public function unlike(ManagerRegistry $doctrine, Request $request): Response
+  {
+    $user = $this->getUser();
+    $publication_id = $request->get('publication');
+
+    $entityManager = $doctrine->getManager();
+    $publication_repository = $entityManager->getRepository(Likes::class);
+
+    $like = $publication_repository->findOneBy([
+      'user' => $user,
+      'publication' => $publication_id
+    ]);
+
+
+    $entityManager->remove($like);
+    $flush = $entityManager->flush();
+
+    if ($flush === null) {
+      $msg = 'No you are not like this publication';
+    }
+
+    return $this->json(['code' => 200, 'message' => $msg], 200);
   }
 }

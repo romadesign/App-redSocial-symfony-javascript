@@ -92,10 +92,20 @@
                                         <b>Categoria</b>
                                         {{ post.categoria.name }}
                                     </div>
-                                    <i class="fas fa-heart like-btn"
-                                        onclick="like({{ post.id }})"
-                                    ></i>
 
+                                    <i class="fas fa-heart like-btn
+                                        {% if likeStatus(app.user, post) == true %}
+                                        d-none
+                                        {% endif %}
+
+                                    " data-btn-like={{post.id}}
+                                    > asd </i>
+                                    <i class="fas fa-heart unlike-btn
+                                    {% if likeStatus(app.user,post) == false %}
+                                        d-none
+                                    {% endif %}
+                                    " data-btn-unlike={{post.id}}
+                                    "> dele </i>
                                 </div>
                             </p>
                         </div>
