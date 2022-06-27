@@ -60,7 +60,7 @@ class Post
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity=Likes::class, mappedBy="publication")
+     * @ORM\OneToMany(targetEntity=Likes::class, mappedBy="publication", orphanRemoval=true, cascade={"persist"})
      */
     private $likes;
 

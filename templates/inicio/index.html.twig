@@ -4,176 +4,176 @@
 {% block body %}
 
 
-    <div class="row d-flex justify-content-between content_post">
-        <div class="col-md-3 content_col-one">
-            <div class="card mt-3 shadow bg-body rounded">
-                <h5 class="card-header fw-bold fs-6">Categorías</h5>
-                <div class="card-body">
-                    <div class="ml-2 justify-content-center">
-                        {% for categorie in categories %}
-                            <a class=" categorie_url badge bg-primary" href="{{path('postPorCategorias',{'id':categorie.id})}}" >{{ categorie.name }} </a>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <div class="card mt-3 shadow bg-body rounded">
-                <h5 class="card-header fw-bold fs-6">Tags</h5>
-                <div class="card-body">
-                    {% for tag in tags_unique_items(tags) %}
-                        <a class="tags_url badge bg-success fst-italic" href="{{ path('postPorTags', {'name':tag}) }}" >{{ tag }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <div class=" col-md-6 mt-3 ">
-            {% for type, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
+  <div class="row d-flex justify-content-between content_post">
+    <div class="col-md-3 content_col-one">
+      <div class="card mt-3 shadow bg-body rounded">
+        <h5 class="card-header fw-bold fs-6">Categorías</h5>
+        <div class="card-body">
+          <div class="ml-2 justify-content-center">
+            {% for categorie in categories %}
+              <a class=" categorie_url badge bg-primary" href="{{path('postPorCategorias',{'id':categorie.id})}}" >{{ categorie.name }} </a>
             {% endfor %}
-
-                {{ render(controller('App\\Controller\\PostController::component')) }}
-
-            <div class="row content-post ">
-                {% for post in posts %}
-                    <div class="card mt-3 post-item shadow p-3 mb-3 bg-body rounded">
-                        <div class="d-flex justify-content-between">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center border-bottom align-items-center ">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <img class="rounded-circle img_profile_post_content"  src="{{ asset("img/"~post.user.img) }}" alt="">
-                                        <p class="badge text-dark text-md-start fs-6">
-                                            {{ post.user.name }}
-                                            <small class="text-muted">{{ post.date | date('d/m/Y') }}
-                                            </small>
-                                        </p>
-
-                                    </div>
-                                    <div class="d-flex">
-                                        {% if app.user != null %}
-                                            {% if post.user.id == app.user.id  %}
-                                                        {% for role in app.user.roles  %}
-                                                            {% if role == 'ROLE_USER' %}
-                                                                <div class="d-flex">
-                                                                    <div class="">
-                                                                        <a class="nav-link dropdown-toggle button_stop_following" data-bs-toggle="dropdown"  role="button" aria-expanded="false"></a>
-                                                                        <ul class="dropdown-menu">
-                                                                            <li><a class="dropdown-item btn btn-outline-success text-center" href="{{ path('post_edit', {'id':post.id}) }}">Editar</a></li>
-                                                                            <li><a class="dropdown-item btn btn-outline-danger text-center" href="{{ path('post_delete', {'id':post.id}) }}">Eliminar</a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            {% endif %}
-                                                        {% endfor %}
-                                            {% endif %}
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="card-body">
-                            <h5 class="card-boddy">{{ post.title }}</h5>
-                            <p class="card-text">{{ post.text | slice(0,50)}}..</p>
-                            <img class="card-img-top" src="{{ asset("img/"~post.image) }}" alt="...">
-                            <p class="mt-3">
-                                <b>Tags</b>
-                                {% for tag in post.tag %}
-                                    <span class="badge bg-success">{{ tag.name }}</span>
-                                {% endfor %}
-                            </p>
-                            <p>
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <b>Categoria</b>
-                                        {{ post.categoria.name }}
-                                    </div>
-
-                                    <i class="fas fa-heart like-btn
-                                        {% if likeStatus(app.user, post) == true %}
-                                        d-none
-                                        {% endif %}
-
-                                    " data-btn-like={{post.id}}
-                                    > asd </i>
-                                    <i class="fas fa-heart unlike-btn
-                                    {% if likeStatus(app.user,post) == false %}
-                                        d-none
-                                    {% endif %}
-                                    " data-btn-unlike={{post.id}}
-                                    "> dele </i>
-                                </div>
-                            </p>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div id="spinner1" class="text-center mt-3 spinner">
-                <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </div>
+          </div>
         </div>
-        <div class="col-md-3 content_col-tree">
-            <div class="card mt-3 shadow bg-body rounded">
-                <h5 class="card-header fw-bold fs-6">Usuarios seguidos</h5>
-                <div class="card-body">
-                    <div id="content_user_get_followed" class="ml-2 justify-content-center">
-                    </div>
-                </div>
-            </div>
-{#            <div class="card mt-3">#}
-{#                <h5 class="card-header fw-bold fs-6">Otras personas</h5>#}
-{#                <div class="card-body">#}
-{#                    <div class="ml-2 justify-content-center">#}
-{#                        {% for user in users %}#}
-{#                            <div class="d-flex justify-content-between">#}
-{#                                <div class="d-flex">#}
-{#                                    <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">#}
-{#                                    <div class="content_name_user">#}
-{#                                        {{ user.name }}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="d-flex justify-content-between">#}
-{#                                    <div class="content_badge_roles">#}
-{#                                        {% for role in user.roles %}#}
-{#                                            {% if role == 'ROLE_USER' %}#}
-{#                                                <span class="badge bg-primary fw-normal">User</span>#}
-{#                                            {% elseif role == 'ROLE_ADMIN' %}#}
-{#                                                <span class="badge bg-danger fw-normal">Adm</span>#}
-{#                                            {% endif %}#}
-{#                                        {% endfor %}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        {% endfor %}#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-            <div class="card mt-3 shadow bg-body rounded">
-                <h5 class="card-header fw-bold fs-6">Seguir a otras personas</h5>
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            Roles
-                        </div>
-                        <div class="content_badge_roles_options">
-                            <span class="badge bg-primary rounded-pill fw-normal">User</span>
-                            <span class="badge bg-danger rounded-pill fw-normal">Admin</span>
-                        </div>
-                    </div>
-                    <div id="content_user_get" class="ml-2 justify-content-center">
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="card mt-3 shadow bg-body rounded">
+        <h5 class="card-header fw-bold fs-6">Tags</h5>
+        <div class="card-body">
+          {% for tag in tags_unique_items(tags) %}
+            <a class="tags_url badge bg-success fst-italic" href="{{ path('postPorTags', {'name':tag}) }}" >{{ tag }}</a>
+          {% endfor %}
         </div>
+      </div>
     </div>
+    <div class=" col-md-6 mt-3 ">
+      {% for type, messages in app.flashes %}
+        {% for message in messages %}
+          <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endfor %}
+
+        {{ render(controller('App\\Controller\\PostController::component')) }}
+
+      <div class="row content-post ">
+        {% for post in posts %}
+          <div class="card mt-3 post-item shadow p-3 mb-3 bg-body rounded">
+            <div class="d-flex justify-content-between">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center border-bottom align-items-center ">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <img class="rounded-circle img_profile_post_content"  src="{{ asset("img/"~post.user.img) }}" alt="">
+                    <p class="badge text-dark text-md-start fs-6">
+                      {{ post.user.name }}
+                      <small class="text-muted">{{ post.date | date('d/m/Y') }}
+                      </small>
+                    </p>
+
+                  </div>
+                  <div class="d-flex">
+                    {% if app.user != null %}
+                      {% if post.user.id == app.user.id  %}
+                            {% for role in app.user.roles  %}
+                              {% if role == 'ROLE_USER' %}
+                                <div class="d-flex">
+                                  <div class="">
+                                    <a class="nav-link dropdown-toggle button_stop_following" data-bs-toggle="dropdown"  role="button" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item btn btn-outline-success text-center" href="{{ path('post_edit', {'id':post.id}) }}">Editar</a></li>
+                                      <li><a class="dropdown-item btn btn-outline-danger text-center" href="{{ path('post_delete', {'id':post.id}) }}">Eliminar</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              {% endif %}
+                            {% endfor %}
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-boddy">{{ post.title }}</h5>
+              <p class="card-text">{{ post.text | slice(0,50)}}..</p>
+              <img class="card-img-top" src="{{ asset("img/"~post.image) }}" alt="...">
+              <p class="mt-3">
+                <b>Tags</b>
+                {% for tag in post.tag %}
+                  <span class="badge bg-success">{{ tag.name }}</span>
+                {% endfor %}
+              </p>
+              <p>
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <b>Categoria</b>
+                    {{ post.categoria.name }}
+                  </div>
+
+                  <i class="fas fa-heart like-btn 
+                    {% if likeStatus(app.user, post) == true %} d-none {% endif %}
+                  " data-btn-like={{post.id}}
+                  > 
+                  <samp class="fw-bold">Me gusta</samp>
+                   </i>
+                  <i class="fas fa-heart unlike-btn
+                  {% if likeStatus(app.user,post) == false %} d-none {% endif %}
+                  " data-btn-unlike={{post.id}}
+                  "> 
+                   
+                  </i>
+                 
+                </div>
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div id="spinner1" class="text-center mt-3 spinner">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 content_col-tree">
+      <div class="card mt-3 shadow bg-body rounded">
+        <h5 class="card-header fw-bold fs-6">Usuarios seguidos</h5>
+        <div class="card-body">
+          <div id="content_user_get_followed" class="ml-2 justify-content-center">
+          </div>
+        </div>
+      </div>
+{#      <div class="card mt-3">#}
+{#        <h5 class="card-header fw-bold fs-6">Otras personas</h5>#}
+{#        <div class="card-body">#}
+{#          <div class="ml-2 justify-content-center">#}
+{#            {% for user in users %}#}
+{#              <div class="d-flex justify-content-between">#}
+{#                <div class="d-flex">#}
+{#                  <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">#}
+{#                  <div class="content_name_user">#}
+{#                    {{ user.name }}#}
+{#                  </div>#}
+{#                </div>#}
+{#                <div class="d-flex justify-content-between">#}
+{#                  <div class="content_badge_roles">#}
+{#                    {% for role in user.roles %}#}
+{#                      {% if role == 'ROLE_USER' %}#}
+{#                        <span class="badge bg-primary fw-normal">User</span>#}
+{#                      {% elseif role == 'ROLE_ADMIN' %}#}
+{#                        <span class="badge bg-danger fw-normal">Adm</span>#}
+{#                      {% endif %}#}
+{#                    {% endfor %}#}
+{#                  </div>#}
+{#                </div>#}
+{#              </div>#}
+{#            {% endfor %}#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+      <div class="card mt-3 shadow bg-body rounded">
+        <h5 class="card-header fw-bold fs-6">Seguir a otras personas</h5>
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              Roles
+            </div>
+            <div class="content_badge_roles_options">
+              <span class="badge bg-primary rounded-pill fw-normal">User</span>
+              <span class="badge bg-danger rounded-pill fw-normal">Admin</span>
+            </div>
+          </div>
+          <div id="content_user_get" class="ml-2 justify-content-center">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
 {% block pagination %}
-    {% include 'post/pagination.html.twig' %}
+  {% include 'post/pagination.html.twig' %}
 {% endblock %}

@@ -172,6 +172,17 @@ p.badge.text-dark.text-md-start.fs-6 {
     margin: 0 auto;
 }
 
+.like-btn {
+    color: red !important;
+    cursor: pointer;
+}
+
+.unlike-btn {
+    color: #777777 !important;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
 @media (max-width: 768px) {
     .content_col-one {
         display: none;
