@@ -116,9 +116,6 @@ class CategoryController extends AbstractController
   /**
    * @Route("/postPorCategorias/{id}", name="postPorCategorias")
    */
-
-
-
   public function categoriesPost($id, ManagerRegistry $doctrine): Response
   {
     $entityManager = $doctrine->getManager();

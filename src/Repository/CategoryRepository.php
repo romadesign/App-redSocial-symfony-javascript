@@ -76,8 +76,7 @@ class CategoryRepository extends ServiceEntityRepository
             INNER JOIN App\Entity\Category C
             WHERE p.categoria = C.id 
             AND p.status = :status 
-            AND p.categoria = :id 
-            '
+            AND p.categoria = :id'
         )
             ->setParameter('id', $id)
             ->setParameter('status', 'public');

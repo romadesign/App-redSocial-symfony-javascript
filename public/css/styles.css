@@ -173,25 +173,40 @@ p.badge.text-dark.text-md-start.fs-6 {
 }
 
 .like-btn {
-    color: red !important;
+    color: rgb(75, 75, 75) !important;
     cursor: pointer;
 }
 
 .unlike-btn {
-    color: #777777 !important;
+    color: #0d6efd !important;
     cursor: pointer;
     font-size: 0.8rem;
 }
 .like-btn-categorie {
-    color: red !important;
+    color: rgb(75, 75, 75) !important;
     cursor: pointer;
 }
 
 .unlike-btn-categorie {
-    color: #777777 !important;
+    color: #0d6efd !important;
     cursor: pointer;
     font-size: 0.8rem;
 }
+
+samp.fw-bold {
+    font-size: 0.9rem !important;
+}
+
+.post-item {
+    padding: 0 !important;
+    margin-bottom: 1rem;
+}
+
+.conten_user_post{
+    padding: 0.7rem !important;
+}
+
+
 
 @media (max-width: 768px) {
     .content_col-one {
