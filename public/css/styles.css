@@ -182,6 +182,16 @@ p.badge.text-dark.text-md-start.fs-6 {
     cursor: pointer;
     font-size: 0.8rem;
 }
+.like-btn-categorie {
+    color: red !important;
+    cursor: pointer;
+}
+
+.unlike-btn-categorie {
+    color: #777777 !important;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
 
 @media (max-width: 768px) {
     .content_col-one {

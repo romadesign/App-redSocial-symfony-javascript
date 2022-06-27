@@ -98,7 +98,7 @@ function getFollowedUsers(followedUsers) {
 
   if (followedUsers == undefined) {
     document.getElementById("content_user_get_followed").innerHTML += `
-            <div class="text-center">Necesitas <a class="dropdown-item" href="">Iniciar sesion</a> para ver esta información</div>
+            <div class="text-center">Necesitas iniciar sesión para ver esta información</div>
             
         `;
   } else {
@@ -276,4 +276,34 @@ function unlikeBtn() {
         },
       });
     });
+}
+
+function likePostCategory(id) {
+  $(this).addClass("d-none");
+  $(this).parent().find(".like-btn-categorie").removeClass("d-none");
+  //
+  $.ajax({
+    url: "/like",
+    data: { publication: id },
+    type: "POST",
+    success: function (data) {
+      console.log(data);
+      window.location.reload();
+    },
+  });
+}
+
+function unlikePostCategory(id) {
+  $(this).addClass("d-none");
+  $(this).parent().find(".unlike-btn-categorie").removeClass("d-none");
+  //
+  $.ajax({
+    url: "/unlike",
+    data: { publication: id },
+    type: "POST",
+    success: function (data) {
+      console.log(data);
+      window.location.reload();
+    },
+  });
 }

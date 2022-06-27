@@ -44,6 +44,7 @@ class LikesExtension extends AbstractExtension
             'publication' => $publication_id
         ]);
 
+
         if ($like_user != null && !empty($like_user) && is_object($like_user)) {
             $result = true;
         } else {

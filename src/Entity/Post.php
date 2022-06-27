@@ -59,6 +59,8 @@ class Post
      */
     private $status;
 
+
+    //orphanRemoval=true, cascade={"persist"} <- para eliminar correctamente una tabla 
     /**
      * @ORM\OneToMany(targetEntity=Likes::class, mappedBy="publication", orphanRemoval=true, cascade={"persist"})
      */

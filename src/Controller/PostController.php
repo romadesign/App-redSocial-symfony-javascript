@@ -41,7 +41,6 @@ class PostController extends AbstractController
     $categories = $entityManager->getRepository(Category::class)->findAll();
     $tags = $entityManager->getRepository(Tag::class)->findAll();
     $users = $entityManager->getRepository(User::class)->findAllUsers();
-    $likes = $entityManager->getRepository(Likes::class)->findAll();
     //Paginate
     $totalPost = count($posts);
     $pageCount = ceil($totalPost / $articlesByPage);
@@ -52,7 +51,6 @@ class PostController extends AbstractController
       'categories' => $categories,
       'tags' => $tags,
       'users' => $users,
-      'likes' => $likes,
       'page' => $page,
       'totalPost' => $totalPost,
       'pageCount' => $pageCount,

@@ -24,47 +24,58 @@ class LikeController extends AbstractController
 
     $entityManager = $doctrine->getManager();
     $publication_repository = $entityManager->getRepository(Post::class);
-
     $publication = $publication_repository->find($publication_id);
 
-    $like = new Likes();
-    $like->setUser($user);
-    $like->setPublication($publication);
 
-    $entityManager->persist($like);
-    $flush = $entityManager->flush();
+    if ($publication == null) {
+      return $this->redirectToRoute('index');
+    } else {
+      if ($user->getId() === null) {
+        return $this->redirect('index');
+      } else {
+        $like = new Likes();
+        $like->setUser($user);
+        $like->setPublication($publication);
 
-    if ($flush === null) {
-      $msg = 'like this publication';
+        $entityManager->persist($like);
+        $flush = $entityManager->flush();
+
+        if ($flush === null) {
+          $msg = 'like this publication';
+        }
+        return $this->json(['code' => 200, 'message' => $msg], 200);
+      }
     }
-
-    return $this->json(['code' => 200, 'message' => $msg], 200);
   }
 
   /**
-   * @Route("/unlike", name="unlike")
+   * @Route("/unlike", name="unlike", methods={"POST"})
    */
   public function unlike(ManagerRegistry $doctrine, Request $request): Response
   {
     $user = $this->getUser();
     $publication_id = $request->get('publication');
 
+
     $entityManager = $doctrine->getManager();
     $publication_repository = $entityManager->getRepository(Likes::class);
 
-    $like = $publication_repository->findOneBy([
-      'user' => $user,
-      'publication' => $publication_id
-    ]);
+    if ($user === null) {
+      return $this->redirect('index');
+    } else {
+      $like = $publication_repository->findOneBy([
+        'user' => $user,
+        'publication' => $publication_id
+      ]);
 
+      $entityManager->remove($like);
+      $flush = $entityManager->flush();
 
-    $entityManager->remove($like);
-    $flush = $entityManager->flush();
+      if ($flush === null) {
+        $msg = 'Delete unlike';
+      }
 
-    if ($flush === null) {
-      $msg = 'No you are not like this publication';
+      return $this->json(['code' => 200, 'message' => $msg], 200);
     }
-
-    return $this->json(['code' => 200, 'message' => $msg], 200);
   }
 }
