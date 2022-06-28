@@ -3,73 +3,86 @@
 {% block title %} Busqueda {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card-body d-flex justify-content-between">
-                <div>
-                    Estos son los resultados de tu búsqueda:
-                    <span class="badge bg-light text-dark"> "{{ palabra }}"</span>
-                </div>
-                <div>Resultados:
-                    <span class="badge bg-dark">"{{ totalResult }}"</span>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="row">
-                    {% for result in results %}
-                        <div class="col-md-4">
-                            <div class="card shadow bg-body rounded mt-2">
-                                <div class="d-flex">
-                                    <div class="card-body d-flex align-items-center">
-                                        <img style="width: 50px" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6" alt="">
-                                        <p class="badge text-dark p-3 text-md-start fs-6 cursor-pointer">
-                                            {{ result.user.name }}
-                                            <small class="text-muted">{{ result.date | date('d/m/Y') }}
-                                            </small>
-                                        </p>
-                                    </div>
-                                    {% if app.user != null %}
-                                    {% if result.user.id == app.user.id  %}
-                                        <div class="dropdown">
-                                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-
-                                                    {% for role in app.user.roles  %}
-                                                        {% if role == 'ROLE_ADMIN' %}
-                                                            <div class="button_delete_edit">
-                                                                <a  href="{{ path('post_edit', {'id':result.id}) }}" class="btn btn-outline-success"><i class="fas fa-edit"></i></a>
-                                                                <a  href="{{ path('post_delete', {'id':result.id}) }}" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
-                                                            </div>
-                                                        {% endif %}
-                                                    {% endfor %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-body d-flex justify-content-between">
+        <div>
+          Estos son los resultados de tu búsqueda:
+          <span class="badge bg-light text-dark"> "{{ palabra }}"</span>
+        </div>
+        <div>Resultados:
+          <span class="badge bg-dark">"{{ totalResult }}"</span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row">
+          {% for result in results %}
+            <div class="col-md-4 post-item">
+              <div class="m-2 shadow bg-body rounded">
+                <div class="card-body d-flex justify-content-between align-items-center ">
+                  <div class="d-flex align-items-center">
+                    <img class=" rounded-circle img_profile_post_content" src="{{ asset("img/"~ result.user.img) }}" alt="">
+                    <p class="badge text-dark text-md-start fs-6 cursor-pointer">
+                        {{ result.user.name }}
+                        <small class="text-muted">{{ result.date | date('d/m/Y') }}
+                        </small>
+                    </p>
+                  </div>
+                  {% if app.user != null %}
+                          {% if result.user.id == app.user.id  %}
+                                {% for role in app.user.roles  %}
+                                    {% if role == 'ROLE_USER' %}
+                                        <div class="d-flex">
+                                            <div class="">
+                                                <a class="nav-link dropdown-toggle button_stop_following" data-bs-toggle="dropdown"  role="button" aria-expanded="false"></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item btn btn-outline-success text-center" href="{{ path('post_edit', {'id':result.id}) }}">Editar</a></li>
+                                                    <li><a class="dropdown-item btn btn-outline-danger text-center" href="{{ path('post_delete', {'id':result.id}) }}">Eliminar</a></li>
+                                                </ul>
                                             </div>
                                         </div>
                                     {% endif %}
-                                    {% endif %}
-
-                                </div>
-
-                                <div class="card-body">
-                                    <h5 class="card-boddy">{{ result.title }}</h5>
-                                    <p class="card-text">{{ result.text | slice(0,50)}}..</p>
-                                    <img src="{{ asset("img/"~result.image) }}" class="card-img-top img_post " alt="...">
-                                    <p>
-                                        <b>Tags</b>
-                                        {% for tag in result.tag %}
-                                            <span class="badge bg-success">{{ tag.name }}</span>
-                                        {% endfor %}
-                                    </p>
-                                    <p>
-                                        <b>Categoría</b>
-                                        {{ result.categoria.name }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
                 </div>
+
+                <div class="">
+                  <h5 class="ms-3 me-3">{{ result.title }}</h5>
+                  <img class="card-img-top img_post" class="ratio" style="--bs-aspect-ratio: 50%;" src="{{ asset("img/"~result.image) }}" alt="...">
+                   <p class="ms-3 me-3 my-0 mt-3">
+                    <b>Tags</b>
+                    {% for tag in result.tag %}
+                      <spam class="tags_url badge bg-success fst-italic">{{ tag.name }}</span>
+                    {% endfor %}
+                  </p>
+                  <div class="d-flex justify-content-between ms-3 me-3">
+                  <p>
+                    <b>Categoría</b>
+                    <spam class="badge bg-primary">{{ result.categoria.name }}</spam>
+                  </p>
+                   <div >
+                        {% if app.user != null %}
+                        <i class="fas fa-heart like-btn-categorie 
+                            {% if likeStatus(app.user, result) == true %} d-none {% endif %}
+                            "  onclick="likePostCategory({{result.id}})"
+                        > 
+                        <samp class="fw-bold">Me gusta</samp>
+                        </i>
+                        <i class="fas fa-heart unlike-btn-categorie
+                        {% if likeStatus(app.user,result) == false %} d-none {% endif %}
+                        " onclick="unlikePostCategory({{result.id}})"
+                        "> 
+                        </i>
+                        {% endif %}                         
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          {% endfor %}
         </div>
+      </div>
     </div>
+  </div>
 {% endblock %}
