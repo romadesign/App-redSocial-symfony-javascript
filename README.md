@@ -14,7 +14,7 @@ The Symfony framework is open-sourced software.
 * [Php PHP 7.4.29](https://computingforgeeks.com/how-to-install-php-on-ubuntu/)
 * [Composer version 2.3.5](https://computingforgeeks.com/how-to-install-php-on-ubuntu/](https://getcomposer.org/download/))
 * [Symfony 5.1](https://www.osradar.com/install-symfony-ubuntu-20-04/)
-
+* Xampp
 
 
 ## Para poder visualizar el proyecto realice los siguiente pasos.
@@ -24,3 +24,5 @@ The Symfony framework is open-sourced software.
 * Ir al archivo .ENV del proyecto y cambiar el nombre de la base de datos.
 * Ingresar por consola al repositorio descargado y realizar un 'composer install' 
 * Sí realizastes todos los pasos correctamente por la terminal escribir 'symfony server:start' para arrancar el proyecto y visualizarlo.
+
+## Encuentra el tutorial aquí.
