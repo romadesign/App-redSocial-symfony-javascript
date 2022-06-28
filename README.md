@@ -1,4 +1,4 @@
-<p align="center"><a href="https://symfony.com/" target="_blank"><img src="https://antho-cecc.medium.com/easyadmin-and-symfony-4-image-and-file-uploading-without-bundles-3a3d44f53120" width="400"></a></p>
+<p align="center"><a href="https://symfony.com/" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZZdXxkpRzH_l-vqPPGZT0mCQKg7jyyG4MeQ&usqp=CAU" width="400"></a></p>
 
 ## About Symfony
 
