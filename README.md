@@ -10,7 +10,7 @@ Symfony has the most extensive and thorough [documentation](https://symfony.com/
 
 The Symfony framework is open-sourced software.
 
-## Para poder visualizar el proyecto siga los siguiente pasos.
+## Para poder visualizar el proyecto realice los siguiente pasos.
 
 * Clonar el repositorio que esta en la rama Master.
 * Dentro del archivo esta un archivo sql que se debe de importar para poder crear todas las tablas de la aplicación.
