@@ -10,6 +10,13 @@ Symfony has the most extensive and thorough [documentation](https://symfony.com/
 
 The Symfony framework is open-sourced software.
 
+## Tener instalado
+* Php PHP 7.4.29
+* Composer version 2.3.5
+* [Symfony 5.1](https://www.osradar.com/install-symfony-ubuntu-20-04/)
+
+
+
 ## Para poder visualizar el proyecto realice los siguiente pasos.
 
 * Clonar el repositorio que esta en la rama Master.
