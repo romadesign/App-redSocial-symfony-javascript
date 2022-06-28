@@ -92,21 +92,18 @@ class UserController extends AbstractController
   {
     $entityManager = $doctrine->getManager();
     $this->user = $entityManager->getRepository(User::class)->find($id);
-    $user_repository = $entityManager->getRepository(User::class)->find($id);
-
+    $user_repository = $entityManager->getRepository(User::class);
+    $form = $this->createForm(ProfileEditType::class, $this->user);
+    $form->handleRequest($request);
     //validando que el usurio este logeado 
     if ($this->getUser() === null) {
       return $this->redirectToRoute('index');
     }
-
     if ($this->user === null) {
       return $this->redirectToRoute('index');
     } else {
+      //capture userLogin $this->getUser()->getId()
       if ($this->getUser()->getId() === $this->user->getId()) {
-
-        $form = $this->createForm(ProfileEditType::class, $this->user);
-        $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
           $form_name = $form->get('name')->getData();
           $form_subname = $form->get('subname')->getData();

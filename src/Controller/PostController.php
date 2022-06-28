@@ -35,7 +35,7 @@ class PostController extends AbstractController
   {
     $entityManager = $doctrine->getManager();
     //Paginate
-    $articlesByPage = 3;
+    $articlesByPage = 4;
     $posts = $entityManager->getRepository(Post::class)->getPostPaginator($articlesByPage, $page);
 
     $categories = $entityManager->getRepository(Category::class)->findAll();
