@@ -16,12 +16,22 @@ class ProfileEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', TextType::class)
-            ->add('name', EmailType::class)
-            ->add('img', FileType::class, ["data_class" => null])
+            ->add('email', EmailType::class)
+            ->add('name', TextType::class)
+            ->add('img', FileType::class, [
+                'data_class' => null,
+                'required' => false,
+                'mapped' => false,
+            ])
             ->add('subname', TextType::class)
-            ->add('save', SubmitType::class)
-        ;
+            ->add(
+                'save',
+                SubmitType::class,
+                [
+                    'label' => 'Publicar',
+                    'attr' => ['class' => 'mt-3 btn btn-primary']
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

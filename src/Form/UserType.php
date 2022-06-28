@@ -20,11 +20,14 @@ class UserType extends AbstractType
             ->add('password', PasswordType::class)
             ->add('name', TextType::class)
             ->add('subname', TextType::class)
-            ->add('save', SubmitType::class,
-              [ 'label' => 'Registrar',
-                'attr' => ['class' => 'mt-3 btn btn-primary']]
-            )
-        ;
+            ->add(
+                'save',
+                SubmitType::class,
+                [
+                    'label' => 'Registrar',
+                    'attr' => ['class' => 'mt-3 btn btn-primary']
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
