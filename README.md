@@ -8,4 +8,12 @@ Symfony is accessible, powerful, and provides tools required for large, robust a
 
 Symfony has the most extensive and thorough [documentation](https://symfony.com/doc/5.4/frontend/encore/copy-files.html) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-The Symfony framework is open-sourced software..
+The Symfony framework is open-sourced software.
+
+## Para poder visualizar el proyecto siga los siguiente pasos.
+
+* Clonar el repositorio que esta en la rama Master.
+* Dentro del archivo esta un archivo sql que se debe de importar para poder crear todas las tablas de la aplicación.
+* Ir al archivo .ENV del proyecto y cambiar el nombre de la base de datos.
+* Ingresar por consola al repositorio descargado y realizar un 'composer install' 
+* Sí realizastes todos los pasos correctamente por la terminal escribir 'symfony server:start' para arrancar el proyecto y visualizarlo.
