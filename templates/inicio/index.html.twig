@@ -59,7 +59,7 @@
                               {% if role == 'ROLE_USER' %}
                                 <div class="d-flex">
                                   <div class="">
-                                    <a class="nav-link dropdown-toggle button_stop_following" data-bs-toggle="dropdown"  role="button" aria-expanded="false"></a>
+                                    <a class="nav-link button_stop_following" data-bs-toggle="dropdown"  role="button" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
                                     <ul class="dropdown-menu">
                                       <li><a class="dropdown-item btn btn-outline-success text-center" href="{{ path('post_edit', {'id':post.id}) }}">Editar</a></li>
                                       <li><a class="dropdown-item btn btn-outline-danger text-center" href="{{ path('post_delete', {'id':post.id}) }}">Eliminar</a></li>
@@ -78,7 +78,7 @@
 
             <div class="">
               <h5 class="ms-3 me-3 my-0">{{ post.title }}</h5>
-              <p class="ms-3 me-3 my-0">{{ post.text | slice(0,50)}}..</p>
+              <p class="ms-3 me-3 my-0">{{ post.text }}.</p>
               <img class="card-img-top" src="{{ asset("img/"~post.image) }}" alt="...">
               <p class="ms-3 me-3 my-0 mt-3">
                 <b class="">Tags</b>

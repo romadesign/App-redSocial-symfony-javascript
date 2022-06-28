@@ -210,6 +210,20 @@ samp.fw-bold {
     padding: 4rem 0 0 0 !important;
 }
 
+i.fas.fa-ellipsis-h {
+    font-size: 1.2rem !important;
+}
+i.fas.fa-heart {
+    font-size: 1.2rem !important;
+}
+
+li.content_options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center !important;
+}
 
 @media (max-width: 768px) {
     .content_col-one {

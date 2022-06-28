@@ -260,11 +260,17 @@ class PostController extends AbstractController
   {
     $entityManager = $doctrine->getManager();
     $myPosts = $entityManager->getRepository(Post::class)->myPosts($id);
-    if ($myPosts != null) {
-      $posts = $myPosts;
-    } else {
+
+    if ($this->getUser() === null) {
       return $this->redirectToRoute('index');
+    } else {
+      if ($this->getUser()->getId() != $id) {
+        return $this->redirectToRoute('index');
+      } else {
+        $posts = $myPosts;
+      }
     }
+
     return $this->render('post/myposts.html.twig', [
       'title' => 'Tus publicaciones',
       'posts' => $posts

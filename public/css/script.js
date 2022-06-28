@@ -120,7 +120,6 @@ function getFollowedUsers(followedUsers) {
                     <div class="">
                       <a class="nav-link dropdown-toggle button_stop_following" data-bs-toggle="dropdown"  role="button" aria-expanded="false">Siguiendo</a>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item text-center" >Enviar mensaje</a></li>
                         <li><a class="dropdown-item button_deletefollow text-center" 
                          onclick='unfollow(${user.id})'
                       >Dejar de seguir</a></li>

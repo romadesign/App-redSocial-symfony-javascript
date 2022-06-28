@@ -45,8 +45,8 @@
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}
-                                    <li class="text-center"><a class="dropdown-item" href="{{path('myPosts',{'id':app.user.id})}}">Post</a> </li>
-                                    <li class="text-center"><a class="dropdown-item" href="{{path('profile_edit',{'id':app.user.id})}}">Perfil</a> </li>
+                                    <li class="text-center"><a class="dropdown-item" href="{{path('myPosts',{'id':app.user.id})}}">Post <i class="fas fa-tasks"></i></a> </li>
+                                    <li class="text-center"><a class="dropdown-item" href="{{path('profile_edit',{'id':app.user.id})}}">Perfil <i class="fas fa-user-edit"></i></a> </li>
                                     <li class="text-center"><a class="dropdown-item" href="{{path('logout')}}">Salir <i class="fas fa-power-off"></i></a> </li>
                               </ul>
                           </li>
