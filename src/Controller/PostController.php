@@ -29,9 +29,9 @@ class PostController extends AbstractController
 
 
   /**
-   * @Route("/{page}", requirements={"page" = "\d+"}, defaults={"page" = 1}, name="index")
+   * @Route("/{page}", requirements={"page" = "\d+"}, defaults={"page" = 4}, name="index")
    */
-  public function index($page = 1, ManagerRegistry $doctrine): Response
+  public function index($page = 4, ManagerRegistry $doctrine): Response
   {
     $entityManager = $doctrine->getManager();
     //Paginate
@@ -252,6 +252,26 @@ class PostController extends AbstractController
     ]);
   }
 
+
+  /**
+   * @Route("/myPosts/{id}", name="myPosts")
+   */
+  public function myPosts($id, ManagerRegistry $doctrine): Response
+  {
+    $entityManager = $doctrine->getManager();
+    $myPosts = $entityManager->getRepository(Post::class)->myPosts($id);
+    if ($myPosts != null) {
+      $posts = $myPosts;
+    } else {
+      return $this->redirectToRoute('index');
+    }
+    return $this->render('post/myposts.html.twig', [
+      'title' => 'Tus publicaciones',
+      'posts' => $posts
+    ]);
+  }
+
+
   /**
    * @Route("/getUsersAjax", name="getUsersAjax")
    */
@@ -274,13 +294,13 @@ class PostController extends AbstractController
   }
 
   /**
-   * @Route("/getPostAll/{page}", name="getPostAll" , requirements={"page" = "\d+"}, defaults={"page" = 1},)
+   * @Route("/getPostAll/{page}", name="getPostAll" , requirements={"page" = "\d+"}, defaults={"page" = 4},)
    */
-  public  function getPostAll($page = 1, ManagerRegistry $doctrine)
+  public  function getPostAll($page = 4, ManagerRegistry $doctrine)
   {
     $entityManager = $doctrine->getManager();
     //Paginate
-    $articlesByPage = 1;
+    $articlesByPage = 4;
     $posts = $entityManager->getRepository(Post::class)->getPostPaginator($articlesByPage, $page);
 
     $data = [];

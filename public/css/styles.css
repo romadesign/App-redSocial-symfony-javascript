@@ -206,6 +206,9 @@ samp.fw-bold {
     padding: 0.7rem !important;
 }
 
+.content_css {
+    padding: 4rem 0 0 0 !important;
+}
 
 
 @media (max-width: 768px) {

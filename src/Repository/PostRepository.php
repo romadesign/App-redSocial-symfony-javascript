@@ -72,12 +72,12 @@ class PostRepository extends ServiceEntityRepository
   //    }
 
   //paginate post
-  public function getPostPaginator($limit = 4, $page = 1): Paginator
+  public function getPostPaginator($limit = 4, $page = 4): Paginator
   {
     $query = $this->createQueryBuilder('t')
       ->andWhere('t.status = :status')
       ->setParameter('status', 'public')
-      ->setFirstResult($limit * ($page - 1))
+      ->setFirstResult($limit * ($page - 4))
       ->setMaxResults($limit)
       ->orderBy('t.id', 'DESC')
       ->getQuery();
@@ -120,6 +120,17 @@ class PostRepository extends ServiceEntityRepository
       ->getQuery()
       ->getResult();
 
+    return $query;
+  }
+
+  //Query select my post
+  public function myPosts($id)
+  {
+    $query = $this->createQueryBuilder('p')
+      ->andWhere('p.user = :id')
+      ->setParameter('id', $id)
+      ->getQuery()
+      ->getResult();
     return $query;
   }
 }
