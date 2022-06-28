@@ -12,9 +12,8 @@ The Symfony framework is open-sourced software.
 
 ## Tener instalado
 * [Php PHP 7.4.29](https://computingforgeeks.com/how-to-install-php-on-ubuntu/)
-* [Composer version 2.3.5]([https://computingforgeeks.com/how-to-install-php-on-ubuntu/](https://getcomposer.org/download/))
+* [Composer version 2.3.5](https://computingforgeeks.com/how-to-install-php-on-ubuntu/](https://getcomposer.org/download/))
 * [Symfony 5.1](https://www.osradar.com/install-symfony-ubuntu-20-04/)
-* 
 
 
 
